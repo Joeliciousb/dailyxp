@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import theme from "../utils/theme";
 
 const ExperienceContainer = () => {
   return (
@@ -12,7 +13,7 @@ export default ExperienceContainer;
 
 const styles = StyleSheet.create({
   level_container: {
-    backgroundColor: "grey",
+    backgroundColor: theme.colors.secondary,
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -22,5 +23,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "white",
   },
 });

@@ -5,7 +5,7 @@ const BackgroundImage = ({ children }: { children: JSX.Element }) => {
     <View>
       <ImageBackground
         style={{ width: "100%", height: "100%" }}
-        source={require("../../images/thunderbluff_board.jpg")}
+        source={require("../assets/images/thunderbluff_board.jpg")}
         resizeMode="cover"
       >
         {children}
