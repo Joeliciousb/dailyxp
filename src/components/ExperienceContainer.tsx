@@ -4,7 +4,7 @@ import theme from "../utils/theme";
 const ExperienceContainer = () => {
   return (
     <View style={styles.level_container}>
-      <Text style={styles.text}>1</Text>
+      <Text style={styles.text}>13</Text>
     </View>
   );
 };
@@ -13,7 +13,7 @@ export default ExperienceContainer;
 
 const styles = StyleSheet.create({
   level_container: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: "#5C0C5D",
     width: 80,
     height: 80,
     borderRadius: 40,

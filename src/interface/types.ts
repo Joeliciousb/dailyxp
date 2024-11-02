@@ -1,19 +1,15 @@
 type Quest = {
-  title: String;
-  description: String;
-  task: String;
-  questGiver: String;
-  reward: Reward;
-};
-
-type Reward = {
+  title: string;
+  description: string;
+  task: string;
+  questGiver: string;
   experience: number;
   gold: number;
 };
 
 type Character = {
-  race: String;
-  name: String;
+  race: string;
+  name: string;
   experience: number;
   gold: number;
   questsCompleted?: number;

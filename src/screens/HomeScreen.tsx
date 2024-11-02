@@ -1,44 +1,44 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import AppBar from "../components/AppBar";
 import QuestCard from "../components/QuestCard";
 import theme from "../utils/theme";
+import { getQuests } from "../db/questModel";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomeScreen = () => {
-  const quest1: Quest = {
-    title: "Defend the Village",
-    description:
-      "The village is under attack by a group of marauding bandits. Help defend the villagers and chase the bandits away.",
-    task: "Run for 10 minutes",
-    questGiver: "Elder Tomas",
-    reward: {
-      experience: 300,
-      gold: 50,
-    },
-  };
+  const [quests, setQuests] = React.useState<Quest[]>([]);
 
-  const quest2: Quest = {
-    title: "Gather Herbs for Healing",
-    description:
-      "The village healer is in desperate need of healing herbs to treat the injured. Collect 10 healing herbs from the nearby forest.",
-    task: "Do 15 squats",
-    questGiver: "Healer Linara",
-    reward: {
-      experience: 150,
-      gold: 20,
-    },
+  React.useEffect(() => {
+    getAllQuests();
+  }, []);
+
+  const getAllQuests = async () => {
+    const allQuests = await getQuests();
+    if (allQuests) {
+      setQuests(allQuests);
+    }
   };
 
   return (
-    <View style={styles.backgroundContainer}>
+    <LinearGradient
+      colors={theme.colors.background}
+      style={styles.backgroundContainer}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+    >
       <SafeAreaView style={styles.container}>
         <AppBar />
-        <View style={styles.grid}>
-          <QuestCard quest={quest1} />
-          <QuestCard quest={quest2} />
+        <View style={styles.scrollContainer}>
+          <ScrollView contentContainerStyle={styles.grid}>
+            {quests.length > 0 &&
+              quests.map((quest, index) => (
+                <QuestCard key={index} quest={quest} />
+              ))}
+          </ScrollView>
         </View>
       </SafeAreaView>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -49,16 +49,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "stretch",
   },
+  scrollContainer: {
+    flex: 5,
+  },
   grid: {
-    flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
     padding: 10,
   },
   backgroundContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: theme.colors.primary,
+    flex: 1,
   },
 });
