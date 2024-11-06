@@ -1,3 +1,4 @@
+// TODO: Better naming, remove unused styles, decide color palette
 const theme = {
   colors: {
     primary: "#827374",

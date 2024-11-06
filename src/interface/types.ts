@@ -1,4 +1,5 @@
 type Quest = {
+  id: number;
   title: string;
   description: string;
   task: string;

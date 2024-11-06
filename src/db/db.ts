@@ -15,7 +15,7 @@ export const initialize = async () => {
             gold INTEGER,
             completed BOOLEAN DEFAULT 0
           );` +
-        `CREATE TABLE IF NOT EXISTS character (
+        `CREATE TABLE IF NOT EXISTS characters (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
             race TEXT,
@@ -26,17 +26,6 @@ export const initialize = async () => {
     );
   } catch (error) {
     console.error(error);
-  }
-};
-
-export const clearDatabase = async () => {
-  try {
-    const database = await db;
-    await database.runAsync(`DELETE FROM quests`);
-    await database.runAsync(`DELETE FROM character`);
-    console.log("All data cleared from the database.");
-  } catch (error) {
-    console.error("Error clearing database:", error);
   }
 };
 

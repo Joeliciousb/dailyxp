@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import AppBar from "../components/AppBar";
-import QuestCard from "../components/QuestCard";
-import theme from "../utils/theme";
+import QuestModal from "../components/QuestModal";
 import { getQuests } from "../db/questModel";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundImage from "./BackgroundImage";
+import QuestCard from "../components/QuestCard";
 
 const HomeScreen = () => {
-  const [quests, setQuests] = React.useState<Quest[]>([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   React.useEffect(() => {
     getAllQuests();
@@ -20,25 +22,38 @@ const HomeScreen = () => {
     }
   };
 
+  const handleQuestPress = (quest: Quest) => {
+    setSelectedQuest(quest);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setSelectedQuest(null);
+    setModalVisible(false);
+  };
+
   return (
-    <LinearGradient
-      colors={theme.colors.background}
-      style={styles.backgroundContainer}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-    >
+    <BackgroundImage>
       <SafeAreaView style={styles.container}>
         <AppBar />
         <View style={styles.scrollContainer}>
           <ScrollView contentContainerStyle={styles.grid}>
-            {quests.length > 0 &&
-              quests.map((quest, index) => (
-                <QuestCard key={index} quest={quest} />
-              ))}
+            {quests.map((quest) => (
+              <QuestCard
+                key={quest.id}
+                quest={quest}
+                handleQuestPress={handleQuestPress}
+              />
+            ))}
           </ScrollView>
         </View>
+        <QuestModal
+          visible={modalVisible}
+          onClose={closeModal}
+          quest={selectedQuest}
+        />
       </SafeAreaView>
-    </LinearGradient>
+    </BackgroundImage>
   );
 };
 
@@ -57,8 +72,5 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     padding: 10,
-  },
-  backgroundContainer: {
-    flex: 1,
   },
 });
