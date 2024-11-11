@@ -1,0 +1,148 @@
+{
+  "initialQuests": [
+    {
+      "id": 1,
+      "title": "Herbs for Narett",
+      "description": "Alchemist Narett requires a batch of fresh herbs for a potent elixir he's crafting to bolster strength and vigor. He's asked you to gather the necessary ingredients with haste, as his potion is incomplete without them.",
+      "task": "Do 15 squats",
+      "questGiver": "Alchemist Narett",
+      "experience": 100,
+      "gold": 10
+    },
+    {
+      "id": 2,
+      "title": "Sparkles",
+      "description": "Traveler! Thank god you are here. I can't find my cat Sparkles anywhere. Could you help me look for her? It would mean the world to me.",
+      "task": "Take a 15 minute walk",
+      "questGiver": "Farmer kalaba",
+      "experience": 120,
+      "gold": 10
+    },
+    {
+      "id": 3,
+      "title": "The Blacksmith's Demand",
+      "description": "Blacksmith Karvok has forged a new set of armor but lacks the strength to swing his hammer through the final adjustments. He calls upon you to bolster your arms in preparation to aid him in the final forge.",
+      "task": "Do 20 push-ups to build strength for hammering.",
+      "questGiver": "Blacksmith Karvok",
+      "experience": 120,
+      "gold": 15
+    },
+    {
+      "id": 4,
+      "title": "Stamina of the Wolf",
+      "description": "Hunter Alleria seeks companions who can match her endurance on her next expedition. Prove your stamina by simulating the swift strides of the wolf across challenging terrain.",
+      "task": "Run or walk for 10 minutes.",
+      "questGiver": "Hunter Alleria",
+      "experience": 150,
+      "gold": 12
+    },
+    {
+      "id": 5,
+      "title": "Scrolls of the Elders",
+      "description": "Scribe Elandor needs ancient scrolls from the high shelves of the library but cannot reach them. Assist him by stretching and reaching to the top shelves.",
+      "task": "Do 10 stretches with arms reaching above your head.",
+      "questGiver": "Scribe Elandor",
+      "experience": 80,
+      "gold": 8
+    },
+    {
+      "id": 6,
+      "title": "Fruits of the Forest",
+      "description": "Druid Faelara needs a bounty of fresh fruits for her forest rituals. She asks you to hone your agility by mimicking the picking of elusive fruits hidden in the treetops.",
+      "task": "Do 10 lunges on each side to simulate fruit gathering.",
+      "questGiver": "Druid Faelara",
+      "experience": 100,
+      "gold": 9
+    },
+    {
+      "id": 7,
+      "title": "Defensive Stance",
+      "description": "Knight Ser Gavin is teaching recruits the proper defensive stance but needs an assistant to demonstrate. Practice your own balance to prepare.",
+      "task": "Hold a plank position for 30 seconds.",
+      "questGiver": "Knight Ser Gavin",
+      "experience": 130,
+      "gold": 14
+    },
+    {
+      "id": 8,
+      "title": "The Call of the Falcon",
+      "description": "Ranger Lira needs sharp eyes and strong focus for her falconry training. She has tasked you with preparing your vision and concentration.",
+      "task": "Do a 5-minute breathing or meditation exercise.",
+      "questGiver": "Ranger Lira",
+      "experience": 60,
+      "gold": 7
+    },
+    {
+      "id": 9,
+      "title": "March of the Stone Legion",
+      "description": "Captain Thorek leads his troops on rigorous marches to prepare for battle. He challenges you to match their endurance and stamina in your own march.",
+      "task": "Take a 10-minute walk.",
+      "questGiver": "Captain Thorek",
+      "experience": 90,
+      "gold": 11
+    },
+    {
+      "id": 10,
+      "title": "Rations for the Road",
+      "description": "Cook Yara requires aid gathering food and drink for the village. Prove your strength by lifting supplies that mimic carrying heavy provisions.",
+      "task": "Do 20 bicep curls (using dumbbells or household items).",
+      "questGiver": "Cook Yara",
+      "experience": 110,
+      "gold": 13
+    },
+    {
+      "id": 11,
+      "title": "The Shaman's Ritual",
+      "description": "Shaman Morgath is performing an earth-binding ritual, but it requires one to ground themselves firmly. Prepare by aligning your own strength to the earth.",
+      "task": "Do 15 standing calf raises.",
+      "questGiver": "Shaman Morgath",
+      "experience": 75,
+      "gold": 8
+    },
+    {
+      "id": 12,
+      "title": "Warden's Watch",
+      "description": "Guard Captain Sera keeps her soldiers vigilant by testing their endurance during the long hours of watch. Join her in her nightly routine.",
+      "task": "Hold a wall sit for 30 seconds.",
+      "questGiver": "Guard Captain Sera",
+      "experience": 140,
+      "gold": 15
+    },
+    {
+      "id": 13,
+      "title": "Training for the Tournament",
+      "description": "Jousting Master Lorian is looking for recruits to train for the upcoming tournament. Build your endurance and coordination to qualify for his prestigious training.",
+      "task": "Do 20 jumping jacks.",
+      "questGiver": "Jousting Master Lorian",
+      "experience": 95,
+      "gold": 10
+    },
+    {
+      "id": 14,
+      "title": "Blessings of the Light",
+      "description": "Priestess Elda offers blessings to the brave but requires meditation to channel divine energy. Join her in focusing your mind and body to receive the light.",
+      "task": "Do 5 minutes of guided meditation or mindfulness.",
+      "questGiver": "Priestess Elda",
+      "experience": 50,
+      "gold": 6
+    },
+    {
+      "id": 15,
+      "title": "Miner's Bane",
+      "description": "Miner Garik needs support in hauling the ore up from the mines. Mimic his grueling work to show your strength.",
+      "task": "Do 10 deadlifts with a suitable weight or household object.",
+      "questGiver": "Miner Garik",
+      "experience": 120,
+      "gold": 13
+    },
+    {
+      "id": 16,
+      "title": "The Mage's Focus",
+      "description": "Archmage Zorlan practices spells that require immense concentration. He asks you to prepare by improving your core strength, as a strong center keeps the mind balanced.",
+      "task": "Do 15 sit-ups.",
+      "questGiver": "Archmage Zorlan",
+      "experience": 110,
+      "gold": 12
+    }
+  ]
+}

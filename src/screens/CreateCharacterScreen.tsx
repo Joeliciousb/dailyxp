@@ -7,18 +7,21 @@ import {
   Text,
 } from "react-native";
 import theme from "../utils/theme";
-import { addCharacter } from "../db/characterModel";
+import { useNavigation } from "@react-navigation/native";
+import { saveCharacter } from "../services/characterService";
 
 const CreateCharacterScreen = () => {
+  const navigation = useNavigation();
   const [newCharacter, setNewCharacter] = React.useState<Character>({
     name: "",
     race: "",
     experience: 0,
     gold: 0,
   });
-  const saveNewCharacter = () => {
+  const saveNewCharacter = async () => {
     try {
-      addCharacter(newCharacter);
+      await saveCharacter(newCharacter);
+      navigation.navigate("Home");
     } catch (error) {}
   };
   return (

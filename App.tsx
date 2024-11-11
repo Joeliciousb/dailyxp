@@ -1,28 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import HomeScreen from "./src/screens/HomeScreen";
 import React from "react";
-import { initialize } from "./src/db/db";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import theme from "./src/utils/theme";
-import { getCharacters } from "./src/db/characterModel";
 import CreateCharacterScreen from "./src/screens/CreateCharacterScreen";
+import { characterExists } from "./src/services/characterService";
 
 export default function App() {
   const [initialRoute, setInitialRoute] = React.useState<string | null>(null);
   const Stack = createNativeStackNavigator();
 
   React.useEffect(() => {
-    initialize();
-
-    const checkCharacter = async () => {
-      const characterExists = await getCharacters();
-      setInitialRoute(characterExists ? "Home" : "CreateCharacter");
+    const initializeApp = async () => {
+      try {
+        const result = await characterExists();
+        setInitialRoute(result ? "Home" : "CreateCharacter");
+      } catch (error) {
+        console.error("Error during initialization:", error);
+      }
     };
-
-    checkCharacter();
+    initializeApp();
   }, []);
 
   if (!initialRoute) {

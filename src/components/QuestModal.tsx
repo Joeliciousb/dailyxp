@@ -14,9 +14,15 @@ type QuestModalProps = {
   visible: boolean;
   onClose: () => void;
   quest: Quest | null;
+  handleAcceptQuest: () => void;
 };
 
-const QuestModal = ({ visible, onClose, quest }: QuestModalProps) => {
+const QuestModal = ({
+  visible,
+  onClose,
+  quest,
+  handleAcceptQuest,
+}: QuestModalProps) => {
   if (!quest) return null;
 
   return (
@@ -41,10 +47,16 @@ const QuestModal = ({ visible, onClose, quest }: QuestModalProps) => {
               <Text style={styles.textTitle}>{quest.title}</Text>
               <Text style={styles.textBody}>{quest.description}</Text>
               <Text style={styles.textBody}>{quest.task}</Text>
-              <Text>{quest.experience} XP</Text>
+              <Text style={styles.textBody}>{quest.experience} XP</Text>
             </ScrollView>
           </LinearGradient>
           <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={handleAcceptQuest}
+              style={styles.closeButton}
+            >
+              <Text style={styles.buttonText}>Accept</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
               <Text style={styles.buttonText}>Close</Text>
             </TouchableOpacity>
@@ -69,7 +81,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     width: "80%",
-    height: "80%",
+    height: "70%",
   },
   questContainer: {
     borderWidth: 1,
@@ -95,7 +107,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     marginTop: 16,
   },
   closeButton: {

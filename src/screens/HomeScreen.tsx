@@ -1,26 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import AppBar from "../components/AppBar";
 import QuestModal from "../components/QuestModal";
-import { getQuests } from "../db/questModel";
 import BackgroundImage from "./BackgroundImage";
 import QuestCard from "../components/QuestCard";
+import questData from "../assets/quests/initialQuests.json";
+import { deleteCharacter } from "../services/characterService";
 
 const HomeScreen = () => {
-  const [quests, setQuests] = useState<Quest[]>([]);
-  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [quests, setQuests] = React.useState<Quest[]>([]);
+  const [acceptedQuests, setAcceptedQuests] = React.useState<Quest[]>([]);
+  const [selectedQuest, setSelectedQuest] = React.useState<Quest | null>(null);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    getAllQuests();
+    setQuests(questData.initialQuests);
   }, []);
-
-  const getAllQuests = async () => {
-    const allQuests = await getQuests();
-    if (allQuests) {
-      setQuests(allQuests);
-    }
-  };
 
   const handleQuestPress = (quest: Quest) => {
     setSelectedQuest(quest);
@@ -32,11 +27,28 @@ const HomeScreen = () => {
     setModalVisible(false);
   };
 
+  const handleAcceptQuest = () => {
+    if (selectedQuest != null) {
+      const updatedArray: Quest[] = [...acceptedQuests, selectedQuest];
+      setAcceptedQuests(updatedArray);
+      closeModal();
+    }
+  };
+
   return (
     <BackgroundImage>
       <SafeAreaView style={styles.container}>
         <AppBar />
         <View style={styles.scrollContainer}>
+          <View>
+            {acceptedQuests.map((quest) => (
+              <QuestCard
+                key={quest.id}
+                quest={quest}
+                handleQuestPress={handleQuestPress}
+              />
+            ))}
+          </View>
           <ScrollView contentContainerStyle={styles.grid}>
             {quests.map((quest) => (
               <QuestCard
@@ -51,6 +63,7 @@ const HomeScreen = () => {
           visible={modalVisible}
           onClose={closeModal}
           quest={selectedQuest}
+          handleAcceptQuest={handleAcceptQuest}
         />
       </SafeAreaView>
     </BackgroundImage>

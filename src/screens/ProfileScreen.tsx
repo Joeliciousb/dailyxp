@@ -1,15 +1,33 @@
 import React from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View, Text } from "react-native";
 import BackgroundImage from "./BackgroundImage";
 import { useNavigation } from "@react-navigation/native";
+import { loadCharacter } from "../services/characterService";
 
 const ProfileScreen = () => {
+  const [character, setCharacter] = React.useState<Character | null>(null);
   const navigation = useNavigation();
+
+  const getCharacter = async () => {
+    const character: Character | null = await loadCharacter();
+    setCharacter(character);
+  };
+
+  React.useEffect(() => {
+    getCharacter();
+  }, []);
   return (
     <BackgroundImage>
       <View style={styles.container}>
-        <Button onPress={() => navigation.navigate("Home")} title="takas" />
-        <View style={{ backgroundColor: "blue", padding: 30 }}></View>
+        {character && (
+          <View>
+            <Text>{character.name}</Text>
+            <Text>{character.race}</Text>
+          </View>
+        )}
+        <View style={{ backgroundColor: "white", padding: 30 }}>
+          <Button onPress={() => navigation.navigate("Home")} title="takas" />
+        </View>
       </View>
     </BackgroundImage>
   );
