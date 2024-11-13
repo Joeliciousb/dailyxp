@@ -73,14 +73,14 @@ export default QuestModal;
 const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: theme.colors.opacity_50,
     justifyContent: "center",
     alignItems: "center",
   },
   modalContainer: {
     backgroundColor: theme.colors.secondary,
     borderRadius: 8,
-    padding: 16,
+    padding: theme.spacing.medium,
     width: "80%",
     height: "70%",
   },
@@ -92,33 +92,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textQuestGiver: {
-    fontSize: 18,
+    fontSize: theme.fonts.size.large,
     fontWeight: "bold",
-    color: "white",
-    marginBottom: 8,
+    color: theme.fonts.color.white,
+    marginBottom: theme.spacing.small,
   },
   textTitle: {
-    fontSize: 22,
+    fontSize: theme.fonts.size.xLarge,
     fontWeight: "bold",
-    padding: 8,
+    padding: theme.spacing.small,
   },
   textBody: {
-    fontSize: 16,
-    padding: 8,
+    fontSize: theme.fonts.size.medium,
+    padding: theme.spacing.small,
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 16,
+    marginTop: theme.spacing.medium,
   },
   closeButton: {
     backgroundColor: theme.colors.buttonRed,
     borderRadius: 4,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: theme.spacing.medium,
+    paddingVertical: theme.spacing.small,
   },
   buttonText: {
-    color: theme.colors.text,
-    fontSize: 14,
+    color: theme.fonts.color.gold,
+    fontSize: theme.fonts.size.small,
   },
 });

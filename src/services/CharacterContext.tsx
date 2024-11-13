@@ -18,9 +18,14 @@ export const CharacterProvider = ({ children }: { children: JSX.Element }) => {
 
   React.useEffect(() => {
     const initializeCharacter = async () => {
-      const savedCharacter = await loadCharacter();
-      setCharacterState(savedCharacter);
-      setLoading(false);
+      try {
+        const savedCharacter = await loadCharacter();
+        setCharacterState(savedCharacter);
+      } catch (error) {
+        console.error(error, "error saving character");
+      } finally {
+        setLoading(false);
+      }
     };
     initializeCharacter();
   }, []);

@@ -13,5 +13,12 @@ export type Character = {
   name: string;
   experience: number;
   gold: number;
-  questsCompleted?: number;
+  questsCompleted: number;
+};
+
+export type RootStackParamList = {
+  Home: undefined;
+  Profile: undefined;
+  CreateCharacter: undefined;
+  Settings: undefined;
 };

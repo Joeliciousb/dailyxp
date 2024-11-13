@@ -1,17 +1,25 @@
-// TODO: Better naming, remove unused styles, decide color palette
 const theme = {
   colors: {
     primary: "#827374",
     secondary: "#23221E",
-    background: ["#054B83", "#0D6787", "#0A91B4", "#02739C", "#074980"],
-    text: "#F6D105",
-    border: "#cccccc",
+    purple: "#5C0C5D",
     buttonRed: "#600700",
+    opacity_50: "rgba(0,0,0,0.5)",
   },
   fonts: {
     regular: "System",
     bold: "System-Bold",
     italic: "System-Italic",
+    size: {
+      small: 14,
+      medium: 16,
+      large: 18,
+      xLarge: 22,
+    },
+    color: {
+      white: "white",
+      gold: "#F6D105",
+    },
   },
   spacing: {
     small: 8,

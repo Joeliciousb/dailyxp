@@ -8,22 +8,28 @@ import {
 } from "react-native";
 import theme from "../utils/theme";
 import { useNavigation } from "@react-navigation/native";
-import { saveCharacter } from "../services/characterService";
-import { Character } from "../interface/types";
+import { Character, RootStackParamList } from "../interface/types";
+import { useCharacterContext } from "../services/CharacterContext";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const CreateCharacterScreen = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { setCharacter } = useCharacterContext();
   const [newCharacter, setNewCharacter] = React.useState<Character>({
     name: "",
     race: "",
     experience: 0,
     gold: 0,
+    questsCompleted: 0,
   });
   const saveNewCharacter = async () => {
     try {
-      await saveCharacter(newCharacter);
+      setCharacter(newCharacter);
       navigation.navigate("Home");
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <View style={styles.container}>
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   buttonText: {
-    color: theme.colors.text,
+    color: theme.fonts.color.gold,
     paddingHorizontal: 8,
     fontSize: 14,
   },

@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
 import AppBar from "../components/AppBar";
 import QuestModal from "../components/QuestModal";
 import BackgroundImage from "./BackgroundImage";
@@ -12,6 +12,7 @@ import {
 } from "../services/questService";
 import { Quest } from "../interface/types";
 import { useCharacterContext } from "../services/CharacterContext";
+import theme from "../utils/theme";
 
 const HomeScreen = () => {
   const [quests, setQuests] = React.useState<Quest[]>([]);
@@ -44,7 +45,7 @@ const HomeScreen = () => {
     setModalVisible(false);
   };
 
-  const handleAcceptQuest = () => {
+  const handleQuestAccept = () => {
     if (selectedQuest != null) {
       const updatedArray: Quest[] = [...acceptedQuests, selectedQuest];
       setAcceptedQuests(updatedArray);
@@ -61,10 +62,20 @@ const HomeScreen = () => {
       const updatedCharacter = {
         ...character,
         experience: character.experience + quest.experience,
+        gold: character.gold + quest.gold,
+        questsCompleted: ++character.questsCompleted,
       };
 
       setCharacter(updatedCharacter);
     }
+    setAcceptedQuests(updatedArray);
+    saveAcceptedQuests(updatedArray);
+  };
+
+  const handleQuestAbandon = (id: number) => {
+    const updatedArray = acceptedQuests.filter(
+      (currentQuest) => id != currentQuest.id
+    );
     setAcceptedQuests(updatedArray);
     saveAcceptedQuests(updatedArray);
   };
@@ -74,16 +85,19 @@ const HomeScreen = () => {
       <SafeAreaView style={styles.container}>
         <AppBar />
         <View style={styles.scrollContainer}>
-          <View>
+          <View style={styles.grid}>
+            <Text>Accepted dailies</Text>
             {acceptedQuests.map((quest, index) => (
               <AcceptedQuestCard
                 key={index}
                 quest={quest}
                 handleQuestComplete={handleQuestComplete}
+                handleQuestAbandon={handleQuestAbandon}
               />
             ))}
           </View>
           <ScrollView contentContainerStyle={styles.grid}>
+            <Text>Available dailies</Text>
             {quests.map((quest, index) => (
               <QuestCard
                 key={index}
@@ -97,7 +111,7 @@ const HomeScreen = () => {
           visible={modalVisible}
           onClose={closeModal}
           quest={selectedQuest}
-          handleAcceptQuest={handleAcceptQuest}
+          handleAcceptQuest={handleQuestAccept}
         />
       </SafeAreaView>
     </BackgroundImage>
@@ -118,6 +132,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    padding: 10,
+    padding: theme.spacing.small,
   },
 });

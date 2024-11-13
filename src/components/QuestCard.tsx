@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "75%",
     backgroundColor: theme.colors.secondary,
-    padding: 8,
-    margin: 16,
+    padding: theme.spacing.small,
+    margin: theme.spacing.medium,
     alignItems: "center",
   },
 });

@@ -1,33 +1,64 @@
 import React from "react";
-import { Button, StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import BackgroundImage from "./BackgroundImage";
 import { useNavigation } from "@react-navigation/native";
-import { loadCharacter } from "../services/characterService";
-import { Character } from "../interface/types";
+import {
+  calculateLevel,
+  totalExperienceToNextLevel,
+} from "../utils/levelCalculations";
+import { Ionicons } from "@expo/vector-icons";
+import { useCharacterContext } from "../services/CharacterContext";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import theme from "../utils/theme";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../interface/types";
 
 const ProfileScreen = () => {
-  const [character, setCharacter] = React.useState<Character | null>(null);
-  const navigation = useNavigation();
+  const { character } = useCharacterContext();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const getCharacter = async () => {
-    const character: Character | null = await loadCharacter();
-    setCharacter(character);
-  };
-
-  React.useEffect(() => {
-    getCharacter();
-  }, []);
   return (
     <BackgroundImage>
       <View style={styles.container}>
-        {character && (
-          <View>
-            <Text>{character.name}</Text>
-            <Text>{character.race}</Text>
+        <View style={styles.appBar}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={30} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+            <Ionicons name="settings" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.profileInfoContainer}>
+          <View style={styles.profileInfo}>
+            <Image
+              source={require("../assets/images/dwarf_mugshot.png")}
+              style={styles.image}
+            />
+            {character && (
+              <View>
+                <Text style={styles.characterName}>{character.name},</Text>
+                <Text
+                  style={styles.character_text_body}
+                >{`Level ${calculateLevel(character.experience)} ${
+                  character.race
+                }`}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.character_text_body}>
+                    Gold: {character.gold}
+                  </Text>
+                  <FontAwesome6
+                    name="coins"
+                    size={14}
+                    color={theme.fonts.color.gold}
+                  />
+                </View>
+                <Text style={styles.character_text_body}>
+                  Quests Completed: {character.questsCompleted}
+                </Text>
+              </View>
+            )}
           </View>
-        )}
-        <View style={{ backgroundColor: "white", padding: 30 }}>
-          <Button onPress={() => navigation.navigate("Home")} title="takas" />
         </View>
       </View>
     </BackgroundImage>
@@ -39,7 +70,37 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    padding: theme.spacing.large,
+  },
+  appBar: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 40,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: theme.spacing.large,
+    borderRadius: 8,
+  },
+  profileInfoContainer: {
+    flex: 4,
+  },
+  profileInfo: {
+    backgroundColor: theme.colors.secondary,
+    padding: theme.spacing.small,
+    borderRadius: 8,
+  },
+  characterName: {
+    fontSize: theme.fonts.size.xLarge,
+    fontWeight: "bold",
+    marginBottom: theme.spacing.small,
+    color: theme.fonts.color.white,
+  },
+  character_text_body: {
+    fontSize: theme.fonts.size.large,
+    color: theme.fonts.color.white,
+    marginRight: theme.spacing.small,
   },
 });

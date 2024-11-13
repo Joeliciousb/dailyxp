@@ -3,9 +3,12 @@ import ExperienceContainer from "./ExperienceContainer";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../utils/theme";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../interface/types";
 
 const AppBar = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -34,12 +37,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    padding: 16,
+    padding: theme.spacing.medium,
   },
   text: {
-    fontSize: 24,
+    fontSize: theme.fonts.size.xLarge,
     fontWeight: "bold",
-    color: theme.colors.text,
+    color: theme.fonts.color.gold,
   },
   logoContainer: {
     flex: 1,

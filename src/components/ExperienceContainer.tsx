@@ -1,27 +1,32 @@
 import { StyleSheet, Text, View } from "react-native";
-import theme from "../utils/theme";
 import React from "react";
 import { useCharacterContext } from "../services/CharacterContext";
+import {
+  calculateLevel,
+  totalExperienceToNextLevel,
+} from "../utils/levelCalculations";
+import theme from "../utils/theme";
 
 const ExperienceContainer = () => {
   const { character } = useCharacterContext();
 
-  function totalXpToNextLevel(level: number): number {
-    return 400 + 500 * (level - 1) + 50 * (level - 1) ** 2;
-  }
+  const currentLevel = calculateLevel(character!.experience);
+  const nextLevelXP = totalExperienceToNextLevel(currentLevel);
+  const currentXP = character!.experience;
 
-  function mobXp(level: number): number {
-    return 50 + 5 * (level - 1);
-  }
+  const xpInCurrentLevel =
+    currentXP - (totalExperienceToNextLevel(currentLevel - 1) || 0);
+  const xpRequiredForNextLevel =
+    nextLevelXP - (totalExperienceToNextLevel(currentLevel - 1) || 0);
 
-  function mobsToLevel(level: number): number {
-    const totalXp = totalXpToNextLevel(level);
-    const xpPerMob = mobXp(level);
-    return Math.ceil(totalXp / xpPerMob);
-  }
   return (
     <View style={styles.level_container}>
-      <Text style={styles.text}>{character?.experience}</Text>
+      <Text style={styles.text_level}>
+        {calculateLevel(character!.experience)}
+      </Text>
+      <Text style={styles.text_xp}>
+        {xpInCurrentLevel} / {xpRequiredForNextLevel}
+      </Text>
     </View>
   );
 };
@@ -30,16 +35,21 @@ export default ExperienceContainer;
 
 const styles = StyleSheet.create({
   level_container: {
-    backgroundColor: "#5C0C5D",
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    backgroundColor: theme.colors.purple,
+    width: 100,
+    height: 100,
+    borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    fontSize: 24,
+  text_level: {
+    fontSize: theme.fonts.size.xLarge,
     fontWeight: "bold",
-    color: "white",
+    color: theme.fonts.color.white,
+  },
+  text_xp: {
+    fontSize: theme.fonts.size.medium,
+    fontWeight: "bold",
+    color: theme.fonts.color.white,
   },
 });
