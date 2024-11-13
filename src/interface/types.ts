@@ -10,6 +10,7 @@ export type Quest = {
 
 export type Character = {
   race: string;
+  bodyType: string;
   name: string;
   experience: number;
   gold: number;

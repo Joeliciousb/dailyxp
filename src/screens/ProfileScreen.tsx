@@ -2,21 +2,21 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import BackgroundImage from "./BackgroundImage";
 import { useNavigation } from "@react-navigation/native";
-import {
-  calculateLevel,
-  totalExperienceToNextLevel,
-} from "../utils/levelCalculations";
+import { calculateLevel } from "../utils/levelCalculations";
 import { Ionicons } from "@expo/vector-icons";
 import { useCharacterContext } from "../services/CharacterContext";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import theme from "../utils/theme";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../interface/types";
+import { getRaceImage } from "../utils/imageMappings";
 
 const ProfileScreen = () => {
   const { character } = useCharacterContext();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const source = getRaceImage(character!.race, character!.bodyType);
 
   return (
     <BackgroundImage>
@@ -31,10 +31,7 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.profileInfoContainer}>
           <View style={styles.profileInfo}>
-            <Image
-              source={require("../assets/images/dwarf_mugshot.png")}
-              style={styles.image}
-            />
+            <Image source={source} style={styles.image} />
             {character && (
               <View>
                 <Text style={styles.characterName}>{character.name},</Text>

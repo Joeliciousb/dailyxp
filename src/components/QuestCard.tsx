@@ -14,7 +14,7 @@ const QuestCard = ({ quest, handleQuestPress }: QuestCardProps) => {
       onPress={() => handleQuestPress(quest)}
       style={styles.questPreview}
     >
-      <Image source={require("../assets/images/dwarf_mugshot.png")} />
+      <Image source={require("../assets/images/races/body2/dwarf.png")} />
       <Text style={{ color: "white" }}>{quest.title}</Text>
     </TouchableOpacity>
   );

@@ -18,7 +18,7 @@ const AcceptedQuestCard = ({
   return (
     <View style={styles.card}>
       <View style={styles.questOverview}>
-        <Image source={require("../assets/images/dwarf_mugshot.png")} />
+        <Image source={require("../assets/images/races/body2/dwarf.png")} />
         <View style={styles.questInformation}>
           <Text style={{ color: "white", fontSize: 16 }}>{quest.title}</Text>
           <Text style={{ color: "white" }}>{quest.task}</Text>
@@ -36,7 +36,11 @@ const AcceptedQuestCard = ({
               >
                 {quest.gold}
               </Text>
-              <FontAwesome6 name="coins" size={12} color={theme.colors.text} />
+              <FontAwesome6
+                name="coins"
+                size={12}
+                color={theme.fonts.color.gold}
+              />
             </View>
           </View>
         </View>
