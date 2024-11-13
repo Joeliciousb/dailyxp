@@ -9,6 +9,7 @@ import {
 import theme from "../utils/theme";
 import { useNavigation } from "@react-navigation/native";
 import { saveCharacter } from "../services/characterService";
+import { Character } from "../interface/types";
 
 const CreateCharacterScreen = () => {
   const navigation = useNavigation();

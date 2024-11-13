@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Character } from "../interface/types";
 
 const CHARACTER_KEY = "character";
 

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../utils/theme";
+import { Quest } from "../interface/types";
 
 type QuestModalProps = {
   visible: boolean;

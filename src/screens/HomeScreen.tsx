@@ -5,7 +5,13 @@ import QuestModal from "../components/QuestModal";
 import BackgroundImage from "./BackgroundImage";
 import QuestCard from "../components/QuestCard";
 import questData from "../assets/quests/initialQuests.json";
-import { deleteCharacter } from "../services/characterService";
+import AcceptedQuestCard from "../components/AcceptedQuestCard";
+import {
+  loadAcceptedQuests,
+  saveAcceptedQuests,
+} from "../services/questService";
+import { Quest } from "../interface/types";
+import { useCharacterContext } from "../services/CharacterContext";
 
 const HomeScreen = () => {
   const [quests, setQuests] = React.useState<Quest[]>([]);
@@ -13,8 +19,19 @@ const HomeScreen = () => {
   const [selectedQuest, setSelectedQuest] = React.useState<Quest | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
+  const { character, setCharacter } = useCharacterContext();
+
   React.useEffect(() => {
     setQuests(questData.initialQuests);
+
+    const fetchAcceptedQuests = async () => {
+      const loadedQuests = await loadAcceptedQuests();
+      if (loadedQuests) {
+        setAcceptedQuests(loadedQuests);
+      }
+    };
+
+    fetchAcceptedQuests();
   }, []);
 
   const handleQuestPress = (quest: Quest) => {
@@ -31,8 +48,25 @@ const HomeScreen = () => {
     if (selectedQuest != null) {
       const updatedArray: Quest[] = [...acceptedQuests, selectedQuest];
       setAcceptedQuests(updatedArray);
+      saveAcceptedQuests(updatedArray);
       closeModal();
     }
+  };
+
+  const handleQuestComplete = async (quest: Quest) => {
+    const updatedArray = acceptedQuests.filter(
+      (currentQuest) => quest.id != currentQuest.id
+    );
+    if (character != null) {
+      const updatedCharacter = {
+        ...character,
+        experience: character.experience + quest.experience,
+      };
+
+      setCharacter(updatedCharacter);
+    }
+    setAcceptedQuests(updatedArray);
+    saveAcceptedQuests(updatedArray);
   };
 
   return (
@@ -41,18 +75,18 @@ const HomeScreen = () => {
         <AppBar />
         <View style={styles.scrollContainer}>
           <View>
-            {acceptedQuests.map((quest) => (
-              <QuestCard
-                key={quest.id}
+            {acceptedQuests.map((quest, index) => (
+              <AcceptedQuestCard
+                key={index}
                 quest={quest}
-                handleQuestPress={handleQuestPress}
+                handleQuestComplete={handleQuestComplete}
               />
             ))}
           </View>
           <ScrollView contentContainerStyle={styles.grid}>
-            {quests.map((quest) => (
+            {quests.map((quest, index) => (
               <QuestCard
-                key={quest.id}
+                key={index}
                 quest={quest}
                 handleQuestPress={handleQuestPress}
               />

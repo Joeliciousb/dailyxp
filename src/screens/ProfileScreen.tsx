@@ -3,6 +3,7 @@ import { Button, StyleSheet, View, Text } from "react-native";
 import BackgroundImage from "./BackgroundImage";
 import { useNavigation } from "@react-navigation/native";
 import { loadCharacter } from "../services/characterService";
+import { Character } from "../interface/types";
 
 const ProfileScreen = () => {
   const [character, setCharacter] = React.useState<Character | null>(null);

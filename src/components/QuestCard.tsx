@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import theme from "../utils/theme";
+import { Quest } from "../interface/types";
 
 type QuestCardProps = {
   quest: Quest;

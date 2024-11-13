@@ -1,4 +1,4 @@
-type Quest = {
+export type Quest = {
   id: number;
   title: string;
   description: string;
@@ -8,7 +8,7 @@ type Quest = {
   gold: number;
 };
 
-type Character = {
+export type Character = {
   race: string;
   name: string;
   experience: number;
