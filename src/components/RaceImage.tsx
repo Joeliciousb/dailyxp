@@ -24,7 +24,7 @@ const RaceImage = ({
   return (
     <TouchableOpacity onPress={() => handleRaceClick(race)}>
       <View style={[styles.imageContainer, isSelected && styles.selected]}>
-        <Image source={source} style={styles.image} />
+        <Image source={source} style={styles.image} resizeMode="cover" />
       </View>
     </TouchableOpacity>
   );

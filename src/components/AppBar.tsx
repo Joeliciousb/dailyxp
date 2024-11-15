@@ -11,10 +11,7 @@ const AppBar = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.text}>Dailyxp</Text>
-      </View>
-      <View>
+      <View style={styles.experienceContainer}>
         <ExperienceContainer />
       </View>
       <View style={styles.profileContainer}>
@@ -44,12 +41,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: theme.fonts.color.gold,
   },
-  logoContainer: {
-    flex: 1,
-    alignItems: "flex-start",
+  experienceContainer: {
+    flex: 5,
+    alignItems: "flex-end",
   },
   profileContainer: {
-    flex: 1,
+    flex: 3,
     alignItems: "flex-end",
   },
 });

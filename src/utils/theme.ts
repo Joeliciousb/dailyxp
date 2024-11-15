@@ -5,6 +5,7 @@ const theme = {
     purple: "#5C0C5D",
     buttonRed: "#600700",
     opacity_50: "rgba(0,0,0,0.5)",
+    opacity_75: "rgba(0,0,0,0.75)",
   },
   fonts: {
     regular: "System",

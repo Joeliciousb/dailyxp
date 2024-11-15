@@ -186,9 +186,14 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: "40%",
     margin: 12,
     borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: theme.colors.opacity_50,
+    borderColor: theme.colors.secondary,
     padding: 10,
+    color: "white",
   },
 });
 
