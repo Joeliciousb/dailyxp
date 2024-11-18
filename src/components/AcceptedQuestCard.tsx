@@ -18,12 +18,15 @@ const AcceptedQuestCard = ({
   return (
     <View style={styles.card}>
       <View style={styles.questOverview}>
-        <Image source={require("../assets/images/races/body2/dwarf.png")} />
+        <Image
+          style={styles.image}
+          source={require("../assets/images/races/body2/dwarf.png")}
+        />
         <View style={styles.questInformation}>
-          <Text style={{ color: "white", fontSize: 16 }}>{quest.title}</Text>
-          <Text style={{ color: "white" }}>{quest.task}</Text>
+          <Text style={styles.titleText}>{quest.title}</Text>
+          <Text style={styles.taskText}>{`Task: ${quest.task}`}</Text>
           <View style={{ marginTop: 8 }}>
-            <Text style={{ color: "white", fontSize: 12 }}>
+            <Text style={styles.rewardText}>
               {`Experience: ${quest.experience}`}
             </Text>
             <View style={{ flexDirection: "row", marginVertical: 4 }}>
@@ -89,5 +92,22 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: "row",
+  },
+  titleText: {
+    fontSize: theme.fonts.size.medium,
+    color: theme.fonts.color.white,
+    marginBottom: theme.spacing.small,
+  },
+  taskText: {
+    fontSize: theme.fonts.size.small,
+    color: theme.fonts.color.white,
+  },
+  rewardText: {
+    fontSize: theme.fonts.size.small,
+    color: theme.fonts.color.white,
+  },
+  image: {
+    height: 70,
+    width: 70,
   },
 });

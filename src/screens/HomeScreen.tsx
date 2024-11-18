@@ -4,11 +4,10 @@ import AppBar from "../components/AppBar";
 import QuestModal from "../components/QuestModal";
 import BackgroundImage from "./BackgroundImage";
 import QuestCard from "../components/QuestCard";
-import questData from "../assets/quests/initialQuests.json";
 import AcceptedQuestCard from "../components/AcceptedQuestCard";
 import {
-  loadAcceptedQuests,
-  saveAcceptedQuests,
+  loadDailyQuests,
+  ifNewDaySelectRandomDailyQuests,
 } from "../services/questService";
 import { Quest } from "../interface/types";
 import { useCharacterContext } from "../services/CharacterContext";
@@ -16,23 +15,21 @@ import theme from "../utils/theme";
 
 const HomeScreen = () => {
   const [quests, setQuests] = React.useState<Quest[]>([]);
-  const [acceptedQuests, setAcceptedQuests] = React.useState<Quest[]>([]);
   const [selectedQuest, setSelectedQuest] = React.useState<Quest | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const { character, setCharacter } = useCharacterContext();
 
   React.useEffect(() => {
-    setQuests(questData.initialQuests);
-
-    const fetchAcceptedQuests = async () => {
-      const loadedQuests = await loadAcceptedQuests();
-      if (loadedQuests) {
-        setAcceptedQuests(loadedQuests);
+    const fetchDailies = async () => {
+      await ifNewDaySelectRandomDailyQuests();
+      const dailyQuests = await loadDailyQuests();
+      if (dailyQuests) {
+        setQuests(dailyQuests);
       }
     };
 
-    fetchAcceptedQuests();
+    fetchDailies();
   }, []);
 
   const handleQuestPress = (quest: Quest) => {
@@ -47,46 +44,55 @@ const HomeScreen = () => {
 
   const handleQuestAccept = () => {
     if (selectedQuest != null) {
-      const updatedArray: Quest[] = [...acceptedQuests, selectedQuest];
-      setAcceptedQuests(updatedArray);
-      saveAcceptedQuests(updatedArray);
+      setQuests((prevQuests) =>
+        prevQuests.map((quest) =>
+          quest.id === selectedQuest.id
+            ? { ...quest, status: "accepted" }
+            : quest
+        )
+      );
       closeModal();
     }
   };
 
-  const handleQuestComplete = async (quest: Quest) => {
-    const updatedArray = acceptedQuests.filter(
-      (currentQuest) => quest.id != currentQuest.id
-    );
-    if (character != null) {
+  const handleQuestComplete = (quest: Quest) => {
+    if (character) {
       const updatedCharacter = {
         ...character,
         experience: character.experience + quest.experience,
         gold: character.gold + quest.gold,
-        questsCompleted: ++character.questsCompleted,
+        questsCompleted: character.questsCompleted + 1,
       };
-
       setCharacter(updatedCharacter);
     }
-    setAcceptedQuests(updatedArray);
-    saveAcceptedQuests(updatedArray);
+
+    setQuests((prevQuests) =>
+      prevQuests.map((q) =>
+        q.id === quest.id ? { ...q, status: "completed" } : q
+      )
+    );
   };
 
   const handleQuestAbandon = (id: number) => {
-    const updatedArray = acceptedQuests.filter(
-      (currentQuest) => id != currentQuest.id
+    setQuests((prevQuests) =>
+      prevQuests.map((q) => (q.id === id ? { ...q, status: "available" } : q))
     );
-    setAcceptedQuests(updatedArray);
-    saveAcceptedQuests(updatedArray);
   };
+
+  const availableQuests = quests.filter(
+    (quest) => quest.status === "available"
+  );
+  const acceptedQuests = quests.filter((quest) => quest.status === "accepted");
 
   return (
     <BackgroundImage>
       <SafeAreaView style={styles.container}>
         <AppBar />
         <View style={styles.scrollContainer}>
+          {acceptedQuests.length > 0 && (
+            <Text style={styles.headlineText}>Accepted dailies</Text>
+          )}
           <View style={styles.grid}>
-            <Text>Accepted dailies</Text>
             {acceptedQuests.map((quest, index) => (
               <AcceptedQuestCard
                 key={index}
@@ -96,9 +102,9 @@ const HomeScreen = () => {
               />
             ))}
           </View>
+          <Text style={styles.headlineText}>Available dailies</Text>
           <ScrollView contentContainerStyle={styles.grid}>
-            <Text>Available dailies</Text>
-            {quests.map((quest, index) => (
+            {availableQuests.map((quest, index) => (
               <QuestCard
                 key={index}
                 quest={quest}
@@ -123,10 +129,19 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "stretch",
   },
   scrollContainer: {
     flex: 5,
+  },
+  headlineText: {
+    width: "70%",
+    alignSelf: "center",
+    color: theme.fonts.color.white,
+    fontSize: theme.fonts.size.xLarge,
+    fontWeight: "bold",
+    textShadowColor: "black",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 8,
   },
   grid: {
     flexDirection: "row",

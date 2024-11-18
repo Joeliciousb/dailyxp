@@ -33,7 +33,7 @@ const ProfileScreen = () => {
           <View style={styles.profileInfo}>
             <Image source={source} style={styles.image} />
             {character && (
-              <View>
+              <View style={{ padding: theme.spacing.medium }}>
                 <Text style={styles.characterName}>{character.name},</Text>
                 <Text
                   style={styles.character_text_body}
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     backgroundColor: theme.colors.secondary,
-    padding: theme.spacing.small,
+    padding: theme.spacing.medium,
     borderRadius: 8,
   },
   characterName: {

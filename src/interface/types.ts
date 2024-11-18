@@ -1,5 +1,6 @@
 export type Quest = {
   id: number;
+  status?: string;
   title: string;
   description: string;
   task: string;
