@@ -117,13 +117,13 @@ const CreateCharacterScreen = () => {
           <TouchableOpacity onPress={() => handleBodyTypeClick("body1")}>
             <Image
               style={styles.bodyTypeImage}
-              source={require("../assets/images/body1.png")}
+              source={require("../assets/images/races/body1.png")}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleBodyTypeClick("body2")}>
             <Image
               style={styles.bodyTypeImage}
-              source={require("../assets/images/body2.png")}
+              source={require("../assets/images/races/body2.png")}
             />
           </TouchableOpacity>
         </View>

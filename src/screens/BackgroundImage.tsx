@@ -5,7 +5,7 @@ const BackgroundImage = ({ children }: { children: JSX.Element }) => {
     <View>
       <ImageBackground
         style={{ width: "100%", height: "100%" }}
-        source={require("../assets/images/ebintaustakuva.png")}
+        source={require("../assets/images/backgrounds/wrath.png")}
         resizeMode="cover"
       >
         {children}

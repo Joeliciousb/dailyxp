@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../utils/theme";
 import { Quest } from "../interface/types";
@@ -44,12 +45,17 @@ const QuestModal = ({
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <ScrollView>
-              <Text style={styles.textTitle}>{quest.title}</Text>
-              <Text style={styles.textBody}>{quest.description}</Text>
-              <Text style={styles.textBody}>{quest.task}</Text>
-              <Text style={styles.textBody}>{quest.experience} XP</Text>
-            </ScrollView>
+            <Animated.View
+              key={"questContainer"}
+              entering={FadeIn.duration(2000)}
+            >
+              <ScrollView>
+                <Text style={styles.textTitle}>{quest.title}</Text>
+                <Text style={styles.textBody}>{quest.description}</Text>
+                <Text style={styles.textBody}>{quest.task}</Text>
+                <Text style={styles.textBody}>{quest.experience} XP</Text>
+              </ScrollView>
+            </Animated.View>
           </LinearGradient>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: theme.spacing.medium,
     width: "80%",
-    height: "70%",
+    height: "50%",
   },
   questContainer: {
     borderWidth: 1,

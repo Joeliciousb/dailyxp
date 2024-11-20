@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ExperienceContainer from "./ExperienceContainer";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +11,14 @@ const AppBar = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
+      <View style={styles.shopContainer}>
+        <Feather
+          name="shopping-cart"
+          size={30}
+          color="white"
+          onPress={() => navigation.navigate("Shop")}
+        />
+      </View>
       <View style={styles.experienceContainer}>
         <ExperienceContainer />
       </View>
@@ -34,19 +42,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    padding: theme.spacing.medium,
+    padding: theme.spacing.large,
   },
-  text: {
-    fontSize: theme.fonts.size.xLarge,
-    fontWeight: "bold",
-    color: theme.fonts.color.gold,
+  shopContainer: {
+    flex: 1,
   },
   experienceContainer: {
-    flex: 5,
-    alignItems: "flex-end",
+    flex: 1,
   },
   profileContainer: {
-    flex: 3,
+    flex: 1,
     alignItems: "flex-end",
   },
 });

@@ -27,4 +27,5 @@ export type RootStackParamList = {
   Profile: undefined;
   CreateCharacter: undefined;
   Settings: undefined;
+  Shop: undefined;
 };

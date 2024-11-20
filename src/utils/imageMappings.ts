@@ -1,6 +1,5 @@
 import { ImageSourcePropType } from "react-native";
 
-// Define a mapping of races to body types and their respective images
 export const images: {
   [race: string]: { [body: string]: ImageSourcePropType };
 } = {

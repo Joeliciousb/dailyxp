@@ -8,6 +8,7 @@ import AcceptedQuestCard from "../components/AcceptedQuestCard";
 import {
   loadDailyQuests,
   ifNewDaySelectRandomDailyQuests,
+  completeQuest,
 } from "../services/questService";
 import { Quest } from "../interface/types";
 import { useCharacterContext } from "../services/CharacterContext";
@@ -65,7 +66,7 @@ const HomeScreen = () => {
       };
       setCharacter(updatedCharacter);
     }
-
+    completeQuest(quest.id);
     setQuests((prevQuests) =>
       prevQuests.map((q) =>
         q.id === quest.id ? { ...q, status: "completed" } : q
@@ -87,32 +88,30 @@ const HomeScreen = () => {
   return (
     <BackgroundImage>
       <SafeAreaView style={styles.container}>
-        <AppBar />
-        <View style={styles.scrollContainer}>
+        <View style={{ height: "20%" }}>
+          <AppBar />
+        </View>
+        <ScrollView contentContainerStyle={styles.grid}>
           {acceptedQuests.length > 0 && (
             <Text style={styles.headlineText}>Accepted dailies</Text>
           )}
-          <View style={styles.grid}>
-            {acceptedQuests.map((quest, index) => (
-              <AcceptedQuestCard
-                key={index}
-                quest={quest}
-                handleQuestComplete={handleQuestComplete}
-                handleQuestAbandon={handleQuestAbandon}
-              />
-            ))}
-          </View>
+          {acceptedQuests.map((quest, index) => (
+            <AcceptedQuestCard
+              key={index}
+              quest={quest}
+              handleQuestComplete={handleQuestComplete}
+              handleQuestAbandon={handleQuestAbandon}
+            />
+          ))}
           <Text style={styles.headlineText}>Available dailies</Text>
-          <ScrollView contentContainerStyle={styles.grid}>
-            {availableQuests.map((quest, index) => (
-              <QuestCard
-                key={index}
-                quest={quest}
-                handleQuestPress={handleQuestPress}
-              />
-            ))}
-          </ScrollView>
-        </View>
+          {availableQuests.map((quest, index) => (
+            <QuestCard
+              key={index}
+              quest={quest}
+              handleQuestPress={handleQuestPress}
+            />
+          ))}
+        </ScrollView>
         <QuestModal
           visible={modalVisible}
           onClose={closeModal}
@@ -129,9 +128,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollContainer: {
-    flex: 5,
   },
   headlineText: {
     width: "70%",

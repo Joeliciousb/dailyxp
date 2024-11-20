@@ -11,6 +11,7 @@ import {
   useCharacterContext,
   CharacterProvider,
 } from "./src/services/CharacterContext";
+import ShopScreen from "./src/screens/ShopScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ function AppNavigator() {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="CreateCharacter" component={CreateCharacterScreen} />
+      <Stack.Screen name="Shop" component={ShopScreen} />
     </Stack.Navigator>
   );
 }
