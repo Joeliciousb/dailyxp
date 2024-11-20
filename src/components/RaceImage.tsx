@@ -1,32 +1,20 @@
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import theme from "../utils/theme";
+import React from "react";
+import { Image, StyleSheet, View } from "react-native";
 import { getRaceImage } from "../utils/imageMappings";
 
 type RaceImageProps = {
   body: string;
   race: string;
-  selectedRace: string;
-  selectedBodyType: string;
-  handleRaceClick: (race: string) => void;
+  isSelected?: boolean;
 };
 
-const RaceImage = ({
-  body,
-  race,
-  handleRaceClick,
-  selectedRace,
-  selectedBodyType,
-}: RaceImageProps) => {
+const RaceImage = ({ body, race, isSelected }: RaceImageProps) => {
   const source = getRaceImage(race, body);
 
-  const isSelected = race === selectedRace && body === selectedBodyType;
-
   return (
-    <TouchableOpacity onPress={() => handleRaceClick(race)}>
-      <View style={[styles.imageContainer, isSelected && styles.selected]}>
-        <Image source={source} style={styles.image} resizeMode="cover" />
-      </View>
-    </TouchableOpacity>
+    <View style={[styles.imageContainer, isSelected && styles.selected]}>
+      <Image source={source} style={styles.image} resizeMode="cover" />
+    </View>
   );
 };
 
@@ -42,9 +30,9 @@ const styles = StyleSheet.create({
     height: 80,
   },
   selected: {
-    borderColor: theme.fonts.color.gold,
+    borderColor: "gold",
     borderWidth: 2,
-    shadowColor: theme.fonts.color.gold,
+    shadowColor: "gold",
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },

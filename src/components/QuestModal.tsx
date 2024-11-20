@@ -30,7 +30,7 @@ const QuestModal = ({
     <Modal visible={visible} transparent={true} animationType="slide">
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
-          <Text style={styles.textQuestGiver}>{quest.questGiver}</Text>
+          <Text style={styles.textQuestGiver}>{quest.questGiver.name}</Text>
           <LinearGradient
             style={styles.questContainer}
             colors={[

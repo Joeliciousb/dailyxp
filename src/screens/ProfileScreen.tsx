@@ -33,7 +33,12 @@ const ProfileScreen = () => {
           <View style={styles.profileInfo}>
             <Image source={source} style={styles.image} />
             {character && (
-              <View style={{ padding: theme.spacing.medium }}>
+              <View
+                style={{
+                  paddingHorizontal: theme.spacing.medium,
+                  paddingBottom: theme.spacing.small,
+                }}
+              >
                 <Text style={styles.characterName}>{character.name},</Text>
                 <Text
                   style={styles.character_text_body}

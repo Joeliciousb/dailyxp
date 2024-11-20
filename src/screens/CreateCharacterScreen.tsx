@@ -30,8 +30,8 @@ const CreateCharacterScreen = () => {
     questsCompleted: 0,
   });
 
-  const handleRaceClick = (race: string) => {
-    setNewCharacter({ ...newCharacter, race: race });
+  const handleRaceClick = (selectedRace: string) => {
+    setNewCharacter({ ...newCharacter, race: selectedRace });
   };
 
   const handleBodyTypeClick = (bodyType: "body1" | "body2") => {
@@ -53,64 +53,64 @@ const CreateCharacterScreen = () => {
       <View style={styles.container}>
         <View style={styles.raceContainer}>
           <View style={styles.raceColumn}>
-            <RaceImage
-              body={bodyType}
-              race="human"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="dwarf"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="nightelf"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="gnome"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
+            <TouchableOpacity onPress={() => handleRaceClick("human")}>
+              <RaceImage
+                body={bodyType}
+                race="human"
+                isSelected={newCharacter.race === "human"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("dwarf")}>
+              <RaceImage
+                body={bodyType}
+                race="dwarf"
+                isSelected={newCharacter.race === "dwarf"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("nightelf")}>
+              <RaceImage
+                body={bodyType}
+                race="nightelf"
+                isSelected={newCharacter.race === "nightelf"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("gnome")}>
+              <RaceImage
+                body={bodyType}
+                race="gnome"
+                isSelected={newCharacter.race === "gnome"}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.raceColumn}>
-            <RaceImage
-              body={bodyType}
-              race="orc"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="undead"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="tauren"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
-            <RaceImage
-              body={bodyType}
-              race="troll"
-              selectedRace={newCharacter.race}
-              selectedBodyType={bodyType}
-              handleRaceClick={handleRaceClick}
-            />
+            <TouchableOpacity onPress={() => handleRaceClick("orc")}>
+              <RaceImage
+                body={bodyType}
+                race="orc"
+                isSelected={newCharacter.race === "orc"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("undead")}>
+              <RaceImage
+                body={bodyType}
+                race="undead"
+                isSelected={newCharacter.race === "undead"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("tauren")}>
+              <RaceImage
+                body={bodyType}
+                race="tauren"
+                isSelected={newCharacter.race === "tauren"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRaceClick("troll")}>
+              <RaceImage
+                body={bodyType}
+                race="troll"
+                isSelected={newCharacter.race === "troll"}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.bodyTypeRow}>

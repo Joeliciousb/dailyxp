@@ -3,6 +3,7 @@ import theme from "../utils/theme";
 import { Quest } from "../interface/types";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import RaceImage from "./RaceImage";
 
 type QuestCardProps = {
   quest: Quest;
@@ -18,10 +19,7 @@ const AcceptedQuestCard = ({
   return (
     <View style={styles.card}>
       <View style={styles.questOverview}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/races/body2/dwarf.png")}
-        />
+        <RaceImage race={quest.questGiver.race} body={quest.questGiver.body} />
         <View style={styles.questInformation}>
           <Text style={styles.titleText}>{quest.title}</Text>
           <Text style={styles.taskText}>{`Task: ${quest.task}`}</Text>

@@ -1,7 +1,8 @@
-import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../utils/theme";
 import { Quest } from "../interface/types";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import RaceImage from "./RaceImage";
 
 type QuestCardProps = {
   quest: Quest;
@@ -15,11 +16,8 @@ const QuestCard = ({ quest, handleQuestPress }: QuestCardProps) => {
       onPress={() => handleQuestPress(quest)}
       style={styles.questPreview}
     >
-      <Image
-        style={styles.image}
-        source={require("../assets/images/races/body2/dwarf.png")}
-      />
-      <Text style={{ color: "white" }}>{quest.title}</Text>
+      <RaceImage race={quest.questGiver.race} body={quest.questGiver.body} />
+      <Text style={styles.titleText}>{quest.title}</Text>
       <FontAwesome5
         name="exclamation"
         color={theme.fonts.color.gold}
@@ -42,9 +40,10 @@ const styles = StyleSheet.create({
     padding: theme.spacing.small,
     margin: theme.spacing.medium,
     alignItems: "center",
+    justifyContent: "space-between",
   },
-  image: {
-    height: 70,
-    width: 70,
+  titleText: {
+    color: theme.fonts.color.white,
+    fontSize: theme.fonts.size.medium,
   },
 });

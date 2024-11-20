@@ -4,7 +4,11 @@ export type Quest = {
   title: string;
   description: string;
   task: string;
-  questGiver: string;
+  questGiver: {
+    name: string;
+    race: string;
+    body: string;
+  };
   experience: number;
   gold: number;
 };
