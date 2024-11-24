@@ -14,6 +14,7 @@ import { useCharacterContext } from "../services/CharacterContext";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import BackgroundImage from "./BackgroundImage";
 import RaceImage from "../components/RaceImage";
+import Button from "../components/Button";
 
 const CreateCharacterScreen = () => {
   const navigation =
@@ -28,6 +29,7 @@ const CreateCharacterScreen = () => {
     experience: 0,
     gold: 0,
     questsCompleted: 0,
+    inventory: [],
   });
 
   const handleRaceClick = (selectedRace: string) => {
@@ -141,11 +143,7 @@ const CreateCharacterScreen = () => {
           value={newCharacter.name}
           onChangeText={(e) => setNewCharacter({ ...newCharacter, name: e })}
         />
-        <TouchableOpacity onPress={saveNewCharacter}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Accept</Text>
-          </View>
-        </TouchableOpacity>
+        <Button onPress={saveNewCharacter} title="Accept" />
       </View>
     </BackgroundImage>
   );
@@ -171,18 +169,6 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     margin: theme.spacing.small,
-  },
-  button: {
-    backgroundColor: theme.colors.buttonRed,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 4,
-    marginHorizontal: 4,
-  },
-  buttonText: {
-    color: theme.fonts.color.gold,
-    paddingHorizontal: 8,
-    fontSize: 14,
   },
   input: {
     height: 40,

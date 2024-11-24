@@ -45,7 +45,7 @@ const ProfileScreen = () => {
                 >{`Level ${calculateLevel(character.experience)} ${
                   character.race
                 }`}</Text>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text style={styles.character_text_body}>
                     Gold: {character.gold}
                   </Text>

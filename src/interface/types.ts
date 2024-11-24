@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export type Quest = {
   id: number;
   status?: string;
@@ -20,6 +22,14 @@ export type Character = {
   experience: number;
   gold: number;
   questsCompleted: number;
+  inventory: Item[];
+};
+
+export type Item = {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: ImageSourcePropType;
 };
 
 export type RootStackParamList = {

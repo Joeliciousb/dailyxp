@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { Modal, View, Text, StyleSheet, ScrollView } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../utils/theme";
 import { Quest } from "../interface/types";
+import Button from "./Button";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 type QuestModalProps = {
   visible: boolean;
@@ -53,20 +48,34 @@ const QuestModal = ({
                 <Text style={styles.textTitle}>{quest.title}</Text>
                 <Text style={styles.textBody}>{quest.description}</Text>
                 <Text style={styles.textBody}>{quest.task}</Text>
+                <Text style={styles.textBody}>Rewards: </Text>
                 <Text style={styles.textBody}>{quest.experience} XP</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      paddingHorizontal: 8,
+                      fontSize: theme.fonts.size.medium,
+                    }}
+                  >
+                    {quest.gold}
+                  </Text>
+                  <FontAwesome6
+                    name="coins"
+                    size={12}
+                    color={theme.fonts.color.gold}
+                  />
+                </View>
               </ScrollView>
             </Animated.View>
           </LinearGradient>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              onPress={handleAcceptQuest}
-              style={styles.closeButton}
-            >
-              <Text style={styles.buttonText}>Accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
+            <Button onPress={handleAcceptQuest} title="Accept" />
+            <Button onPress={onClose} title="Close" />
           </View>
         </View>
       </View>
@@ -116,15 +125,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing.medium,
-  },
-  closeButton: {
-    backgroundColor: theme.colors.buttonRed,
-    borderRadius: 4,
-    paddingHorizontal: theme.spacing.medium,
-    paddingVertical: theme.spacing.small,
-  },
-  buttonText: {
-    color: theme.fonts.color.gold,
-    fontSize: theme.fonts.size.small,
   },
 });
