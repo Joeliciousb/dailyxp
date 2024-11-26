@@ -10,14 +10,17 @@ const theme = {
   },
   fonts: {
     size: {
-      small: 14,
-      medium: 16,
-      large: 18,
-      xLarge: 22,
+      small: 16,
+      medium: 18,
+      large: 20,
+      xLarge: 24,
     },
     color: {
       white: "white",
       gold: "#F6D105",
+    },
+    family: {
+      lifeCraft: "LifeCraft",
     },
   },
   spacing: {

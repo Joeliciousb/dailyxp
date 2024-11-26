@@ -1,4 +1,5 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
+import Text from "./Text";
 import { Character } from "../interface/types";
 import theme from "../utils/theme";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -11,6 +12,15 @@ type CharacterInfoProps = {
 
 const CharacterInfo = ({ character }: CharacterInfoProps) => {
   const source = getImage(character.race, character!.bodyType);
+
+  const equippedTitle = character.inventory.find(
+    (item) => item.type === "title" && item.equipped
+  );
+
+  const displayedTitle = equippedTitle
+    ? equippedTitle.name.split(",")[1].trim()
+    : "";
+
   return (
     <View style={styles.profileInfoContainer}>
       <View style={styles.profileInfoContainer}>
@@ -22,7 +32,9 @@ const CharacterInfo = ({ character }: CharacterInfoProps) => {
               paddingBottom: theme.spacing.small,
             }}
           >
-            <Text style={styles.characterName}>{character.name},</Text>
+            <Text style={styles.characterName}>
+              {character.name} {displayedTitle},
+            </Text>
             <Text style={styles.character_text_body}>{`Level ${calculateLevel(
               character.experience
             )} ${character.race}`}</Text>

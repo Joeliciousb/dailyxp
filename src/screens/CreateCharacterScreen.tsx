@@ -4,9 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Text,
   Image,
 } from "react-native";
+import Text from "../components/Text";
 import theme from "../utils/theme";
 import { useNavigation } from "@react-navigation/native";
 import { Character, RootStackParamList } from "../interface/types";
@@ -29,7 +29,15 @@ const CreateCharacterScreen = () => {
     experience: 0,
     gold: 0,
     questsCompleted: 0,
-    inventory: [],
+    inventory: [
+      {
+        id: "classic",
+        name: "Classic wallpaper",
+        price: 0,
+        equipped: true,
+        type: "wallpaper",
+      },
+    ],
   });
 
   const handleRaceClick = (selectedRace: string) => {

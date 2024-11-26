@@ -1,5 +1,6 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import Text from "../components/Text";
 import AppBar from "../components/AppBar";
 import QuestModal from "../components/QuestModal";
 import BackgroundImage from "./BackgroundImage";
@@ -124,7 +125,7 @@ const HomeScreen = () => {
           quest={selectedQuest}
           handleAcceptQuest={handleQuestAccept}
         />
-        {!snackbarVisible && <Snackbar message="Thank you adventurer!" />}
+        {snackbarVisible && <Snackbar message="Thank you adventurer!" />}
       </SafeAreaView>
     </BackgroundImage>
   );

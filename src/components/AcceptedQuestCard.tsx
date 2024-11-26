@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Text from "./Text";
 import theme from "../utils/theme";
 import { Quest } from "../interface/types";
 import Feather from "@expo/vector-icons/Feather";

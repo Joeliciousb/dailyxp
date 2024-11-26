@@ -6,7 +6,7 @@ import { getImage } from "../utils/imageMappings";
 const BackgroundImage = ({ children }: { children: JSX.Element }) => {
   const { character } = useCharacterContext();
 
-  const equippedWallpaper = character!.inventory.find(
+  const equippedWallpaper = character?.inventory.find(
     (item) => item.equipped && item.type === "wallpaper"
   );
 

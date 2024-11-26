@@ -13,21 +13,12 @@ export const handleEquipItem = ({
 }: HandleEquipItemProps) => {
   if (!character || !item) return;
 
-  if (item.equipped) {
-    setCharacter({
-      ...character,
-      inventory: character.inventory.map((invItem) =>
-        invItem.id === item.id ? { ...invItem, equipped: false } : invItem
-      ),
-    });
-  } else {
-    setCharacter({
-      ...character,
-      inventory: character.inventory.map((invItem) =>
-        invItem.type === item.type
-          ? { ...invItem, equipped: invItem.id === item.id }
-          : invItem
-      ),
-    });
-  }
+  setCharacter({
+    ...character,
+    inventory: character.inventory.map((invItem) =>
+      invItem.type === item.type
+        ? { ...invItem, equipped: invItem.id === item.id }
+        : invItem
+    ),
+  });
 };

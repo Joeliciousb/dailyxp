@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import Text from "../components/Text";
 import BackgroundImage from "./BackgroundImage";
 import { Ionicons } from "@expo/vector-icons";
 import { useCharacterContext } from "../services/CharacterContext";
@@ -8,9 +15,12 @@ import CharacterInfo from "../components/CharacterInfo";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../interface/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { getImage } from "../utils/imageMappings";
+import Button from "../components/Button";
+import { handleEquipItem } from "../utils/handleEquipItem";
 
 const ProfileScreen = () => {
-  const { character } = useCharacterContext();
+  const { character, setCharacter } = useCharacterContext();
   const [activeTab, setActiveTab] = useState("Character");
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -21,9 +31,6 @@ const ProfileScreen = () => {
         <View style={styles.appBar}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={30} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <Ionicons name="settings" size={30} color="white" />
           </TouchableOpacity>
         </View>
 
@@ -52,12 +59,29 @@ const ProfileScreen = () => {
           {activeTab === "Character" ? (
             <CharacterInfo character={character!} />
           ) : (
-            <View style={styles.inventoryContainer}>
-              <Text style={styles.inventoryText}>Inventory Items:</Text>
-              <Text style={styles.inventoryText}>- Sword</Text>
-              <Text style={styles.inventoryText}>- Shield</Text>
-              <Text style={styles.inventoryText}>- Potion</Text>
-            </View>
+            <ScrollView style={styles.inventoryContainer}>
+              {character!.inventory.map((item) => {
+                const source = getImage(item.type, item.id);
+                return (
+                  <View key={item.id} style={styles.itemCard}>
+                    <Image
+                      source={source}
+                      style={{ height: 150, width: "100%" }}
+                    />
+                    <View style={styles.itemCardInformation}>
+                      <Text style={styles.inventoryText}>{item.name}</Text>
+                      <Button
+                        disabled={item.equipped}
+                        title="Equip"
+                        onPress={() =>
+                          handleEquipItem({ item, character, setCharacter })
+                        }
+                      />
+                    </View>
+                  </View>
+                );
+              })}
+            </ScrollView>
           )}
         </View>
       </View>
@@ -80,6 +104,7 @@ const styles = StyleSheet.create({
   tabs: {
     flexDirection: "row",
     justifyContent: "space-around",
+    paddingTop: 4,
     marginTop: 40,
     backgroundColor: theme.colors.secondary,
     borderTopEndRadius: 8,
@@ -110,5 +135,12 @@ const styles = StyleSheet.create({
   inventoryText: {
     color: theme.fonts.color.white,
     fontSize: theme.fonts.size.medium,
+  },
+  itemCard: { padding: theme.spacing.medium },
+  itemCardInformation: {
+    flexDirection: "row",
+    marginVertical: theme.spacing.medium,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Text from "./Text";
 import theme from "../utils/theme";
 import { Quest } from "../interface/types";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -17,11 +18,14 @@ const QuestCard = ({ quest, handleQuestPress }: QuestCardProps) => {
       style={styles.questPreview}
     >
       <RaceImage race={quest.questGiver.race} body={quest.questGiver.body} />
-      <Text style={styles.titleText}>{quest.title}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.titleText}>{quest.title}</Text>
+      </View>
       <FontAwesome5
         name="exclamation"
         color={theme.fonts.color.gold}
         size={30}
+        style={styles.icon}
       />
     </TouchableOpacity>
   );
@@ -40,10 +44,18 @@ const styles = StyleSheet.create({
     padding: theme.spacing.small,
     margin: theme.spacing.medium,
     alignItems: "center",
-    justifyContent: "space-between",
+  },
+  textContainer: {
+    flex: 1,
+    marginHorizontal: theme.spacing.small,
   },
   titleText: {
     color: theme.fonts.color.white,
-    fontSize: theme.fonts.size.medium,
+    fontSize: theme.fonts.size.large,
+    flexWrap: "wrap",
+  },
+  icon: {
+    marginRight: 8,
+    flexShrink: 0,
   },
 });

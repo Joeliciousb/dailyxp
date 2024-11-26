@@ -6,10 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Text,
   Image,
   Modal,
 } from "react-native";
+import Text from "../components/Text";
 import { Item, RootStackParamList } from "../interface/types";
 import BackgroundImage from "./BackgroundImage";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
@@ -27,6 +27,7 @@ type ItemModalProps = {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   selectedItem: Item;
   handlePurchaseItem: (selectedItem: Item) => void;
+  characterGold: number;
 };
 
 const ItemModal = ({
@@ -34,6 +35,7 @@ const ItemModal = ({
   setIsModalVisible,
   selectedItem,
   handlePurchaseItem,
+  characterGold,
 }: ItemModalProps) => {
   const source = getImage(selectedItem.type, selectedItem.id);
   return (
@@ -58,6 +60,7 @@ const ItemModal = ({
           <View style={styles.modalActions}>
             <Button onPress={() => setIsModalVisible(false)} title="Cancel" />
             <Button
+              disabled={selectedItem.price > characterGold}
               onPress={() => handlePurchaseItem(selectedItem)}
               title="Purchase"
             />
@@ -83,7 +86,7 @@ const ShopScreen = () => {
   const [isSnackbarVisible, setIsSnackbarVisible] = React.useState(false);
 
   const handlePurchaseItem = (item: Item) => {
-    if (character) {
+    if (character && character.gold >= item.price) {
       const updatedInventory = [...character.inventory, item];
       const updatedCharacter = {
         ...character,
@@ -91,13 +94,13 @@ const ShopScreen = () => {
         gold: character.gold - item.price,
       };
       setCharacter(updatedCharacter);
-    }
-    setIsModalVisible(false);
+      setIsModalVisible(false);
 
-    setIsSnackbarVisible(true);
-    setTimeout(() => {
-      setIsSnackbarVisible(false);
-    }, 4000);
+      setIsSnackbarVisible(true);
+      setTimeout(() => {
+        setIsSnackbarVisible(false);
+      }, 4000);
+    }
   };
 
   const renderItem = ({ item }: { item: Item }) => {
@@ -136,13 +139,20 @@ const ShopScreen = () => {
             />
           </View>
         </View>
-        <FlatList
-          data={availableItems}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={1}
-          contentContainerStyle={styles.list}
-        />
+        {availableItems.length > 0 ? (
+          <FlatList
+            data={availableItems}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            numColumns={1}
+            contentContainerStyle={styles.list}
+          />
+        ) : (
+          // TODO
+          <View>
+            <Text>Shop is empty for now!</Text>
+          </View>
+        )}
 
         {
           // BUTTON TO MAKE MONEY
@@ -163,6 +173,7 @@ const ShopScreen = () => {
             setIsModalVisible={setIsModalVisible}
             selectedItem={selectedItem}
             handlePurchaseItem={handlePurchaseItem}
+            characterGold={character!.gold}
           />
         )}
         {isSnackbarVisible && (

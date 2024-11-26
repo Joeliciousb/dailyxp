@@ -3,7 +3,6 @@ import { ActivityIndicator, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import HomeScreen from "./src/screens/HomeScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import CreateCharacterScreen from "./src/screens/CreateCharacterScreen";
@@ -12,6 +11,7 @@ import {
   CharacterProvider,
 } from "./src/services/CharacterContext";
 import ShopScreen from "./src/screens/ShopScreen";
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +40,9 @@ function AppNavigator() {
 }
 
 export default function App() {
+  useFonts({
+    LifeCraft: require("./src/assets/fonts/LifeCraft_Font.ttf"),
+  });
   return (
     <CharacterProvider>
       <NavigationContainer>

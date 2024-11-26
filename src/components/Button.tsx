@@ -1,14 +1,20 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Text from "./Text";
 import theme from "../utils/theme";
 
 type ButtonProps = {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-const Button = ({ title, onPress }: ButtonProps) => {
+const Button = ({ title, onPress, disabled }: ButtonProps) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      disabled={disabled}
+      style={[styles.button, disabled && styles.disabled]}
+      onPress={onPress}
+    >
       <View>
         <Text style={styles.buttonText}>{title}</Text>
       </View>
@@ -26,5 +32,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: theme.fonts.color.gold,
+    fontSize: theme.fonts.size.medium,
+  },
+  disabled: {
+    opacity: 0.3,
   },
 });

@@ -1,5 +1,6 @@
 import React from "react";
-import { Modal, View, Text, StyleSheet, ScrollView } from "react-native";
+import { Modal, View, StyleSheet, ScrollView } from "react-native";
+import Text from "./Text";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../utils/theme";
@@ -74,8 +75,8 @@ const QuestModal = ({
             </Animated.View>
           </LinearGradient>
           <View style={styles.buttonContainer}>
-            <Button onPress={handleAcceptQuest} title="Accept" />
             <Button onPress={onClose} title="Close" />
+            <Button onPress={handleAcceptQuest} title="Accept" />
           </View>
         </View>
       </View>
