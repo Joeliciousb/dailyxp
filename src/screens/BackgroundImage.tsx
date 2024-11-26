@@ -1,11 +1,24 @@
+import React from "react";
 import { ImageBackground, View } from "react-native";
+import { useCharacterContext } from "../services/CharacterContext";
+import { getImage } from "../utils/imageMappings";
 
 const BackgroundImage = ({ children }: { children: JSX.Element }) => {
+  const { character } = useCharacterContext();
+
+  const equippedWallpaper = character!.inventory.find(
+    (item) => item.equipped && item.type === "wallpaper"
+  );
+
+  const source = equippedWallpaper
+    ? getImage(equippedWallpaper.type, equippedWallpaper.id)
+    : getImage("wallpaper", "classic"); // default wallpaper
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ImageBackground
         style={{ width: "100%", height: "100%" }}
-        source={require("../assets/images/backgrounds/classic.png")}
+        source={source}
         resizeMode="cover"
       >
         {children}

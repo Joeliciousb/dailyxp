@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { getRaceImage } from "../utils/imageMappings";
+import { getImage } from "../utils/imageMappings";
 
 type RaceImageProps = {
   body: string;
@@ -9,7 +9,7 @@ type RaceImageProps = {
 };
 
 const RaceImage = ({ body, race, isSelected }: RaceImageProps) => {
-  const source = getRaceImage(race, body);
+  const source = getImage(race, body);
 
   return (
     <View style={[styles.imageContainer, isSelected && styles.selected]}>

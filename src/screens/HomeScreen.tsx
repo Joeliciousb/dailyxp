@@ -13,11 +13,13 @@ import {
 import { Quest } from "../interface/types";
 import { useCharacterContext } from "../services/CharacterContext";
 import theme from "../utils/theme";
+import Snackbar from "../components/Snackbar";
 
 const HomeScreen = () => {
   const [quests, setQuests] = React.useState<Quest[]>([]);
   const [selectedQuest, setSelectedQuest] = React.useState<Quest | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  const [snackbarVisible, setSnackbarVisible] = React.useState<boolean>(false);
 
   const { character, setCharacter } = useCharacterContext();
 
@@ -72,6 +74,10 @@ const HomeScreen = () => {
         q.id === quest.id ? { ...q, status: "completed" } : q
       )
     );
+    setSnackbarVisible(true);
+    setTimeout(() => {
+      setSnackbarVisible(false);
+    }, 3000);
   };
 
   const handleQuestAbandon = (id: number) => {
@@ -118,6 +124,7 @@ const HomeScreen = () => {
           quest={selectedQuest}
           handleAcceptQuest={handleQuestAccept}
         />
+        {!snackbarVisible && <Snackbar message="Thank you adventurer!" />}
       </SafeAreaView>
     </BackgroundImage>
   );

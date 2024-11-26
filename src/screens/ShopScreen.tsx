@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
@@ -8,7 +8,6 @@ import {
   View,
   Text,
   Image,
-  ImageSourcePropType,
   Modal,
 } from "react-native";
 import { Item, RootStackParamList } from "../interface/types";
@@ -18,61 +17,70 @@ import theme from "../utils/theme";
 import { useCharacterContext } from "../services/CharacterContext";
 import { filterItemsNotInInventory } from "../utils/filterItemsNotInInventory";
 import Button from "../components/Button";
+import itemsData from "../assets/data/shopItems.json";
+import { getImage } from "../utils/imageMappings";
+import Snackbar from "../components/Snackbar";
+import { handleEquipItem } from "../utils/handleEquipItem";
 
-const items: Item[] = [
-  {
-    id: "1",
-    name: "Pandaria wallpaper",
-    price: 100,
-    imageUrl: require("../assets/images/backgrounds/panda.png"),
-  },
-  {
-    id: "2",
-    name: "Northrend wallpaper",
-    price: 150,
-    imageUrl: require("../assets/images/backgrounds/wrath.png"),
-  },
-  {
-    id: "3",
-    name: "Deathwing wallpaper",
-    price: 125,
-    imageUrl: require("../assets/images/backgrounds/deathwing.png"),
-  },
-  {
-    id: "4",
-    name: "Teldrassil wallpaper",
-    price: 100,
-    imageUrl: require("../assets/images/backgrounds/teldrassil.png"),
-  },
-  {
-    id: "5",
-    name: "Character Title, the Insane",
-    price: 50,
-    imageUrl: require("../assets/images/titles/insane.png"),
-  },
-  {
-    id: "6",
-    name: "Character Title, Jenkins",
-    price: 50,
-    imageUrl: require("../assets/images/titles/jenkins.png"),
-  },
-  {
-    id: "7",
-    name: "Character Title, the Patient",
-    price: 50,
-    imageUrl: require("../assets/images/titles/patient.png"),
-  },
-];
+type ItemModalProps = {
+  isModalVisible: boolean;
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedItem: Item;
+  handlePurchaseItem: (selectedItem: Item) => void;
+};
+
+const ItemModal = ({
+  isModalVisible,
+  setIsModalVisible,
+  selectedItem,
+  handlePurchaseItem,
+}: ItemModalProps) => {
+  const source = getImage(selectedItem.type, selectedItem.id);
+  return (
+    <Modal
+      visible={isModalVisible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => setIsModalVisible(false)}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalContent}>
+          <Image source={source} style={styles.modalImage} />
+          <Text style={styles.itemName}>{selectedItem.name}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.characterGoldText}>{selectedItem.price}</Text>
+            <FontAwesome6
+              name="coins"
+              size={20}
+              color={theme.fonts.color.gold}
+            />
+          </View>
+          <View style={styles.modalActions}>
+            <Button onPress={() => setIsModalVisible(false)} title="Cancel" />
+            <Button
+              onPress={() => handlePurchaseItem(selectedItem)}
+              title="Purchase"
+            />
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 
 const ShopScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { character, setCharacter } = useCharacterContext();
 
-  const availableItems = filterItemsNotInInventory(items, character!.inventory);
+  const availableItems = filterItemsNotInInventory(
+    itemsData.items,
+    character!.inventory
+  );
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [selectedItem, setSelectedItem] = React.useState<Item | null>(null);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [isSnackbarVisible, setIsSnackbarVisible] = React.useState(false);
 
   const handlePurchaseItem = (item: Item) => {
     if (character) {
@@ -85,33 +93,32 @@ const ShopScreen = () => {
       setCharacter(updatedCharacter);
     }
     setIsModalVisible(false);
+
+    setIsSnackbarVisible(true);
+    setTimeout(() => {
+      setIsSnackbarVisible(false);
+    }, 4000);
   };
 
-  const renderItem = ({
-    item,
-  }: {
-    item: {
-      id: string;
-      name: string;
-      price: number;
-      imageUrl: ImageSourcePropType;
-    };
-  }) => (
-    <TouchableOpacity
-      style={styles.itemCard}
-      onPress={() => {
-        setSelectedItem(item);
-        setIsModalVisible(true);
-      }}
-    >
-      <Image source={item.imageUrl} style={styles.itemImage} />
-      <Text style={styles.itemName}>{item.name}</Text>
-      <View style={{ flexDirection: "row", marginVertical: 4 }}>
-        <Text style={styles.itemPrice}>{item.price}</Text>
-        <FontAwesome6 name="coins" size={20} color={theme.fonts.color.gold} />
-      </View>
-    </TouchableOpacity>
-  );
+  const renderItem = ({ item }: { item: Item }) => {
+    const source = getImage(item.type, item.id);
+    return (
+      <TouchableOpacity
+        style={styles.itemCard}
+        onPress={() => {
+          setSelectedItem(item);
+          setIsModalVisible(true);
+        }}
+      >
+        <Image source={source} style={styles.itemImage} />
+        <Text style={styles.itemName}>{item.name}</Text>
+        <View style={{ flexDirection: "row", marginVertical: 4 }}>
+          <Text style={styles.itemPrice}>{item.price}</Text>
+          <FontAwesome6 name="coins" size={20} color={theme.fonts.color.gold} />
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <BackgroundImage>
@@ -136,6 +143,10 @@ const ShopScreen = () => {
           numColumns={1}
           contentContainerStyle={styles.list}
         />
+
+        {
+          // BUTTON TO MAKE MONEY
+        }
         <TouchableOpacity
           onPress={() =>
             setCharacter({ ...character!, gold: character!.gold + 100 })
@@ -147,42 +158,25 @@ const ShopScreen = () => {
         </TouchableOpacity>
 
         {selectedItem && (
-          <Modal
-            visible={isModalVisible}
-            animationType="slide"
-            transparent={true}
-            onRequestClose={() => setIsModalVisible(false)}
-          >
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContent}>
-                <Image
-                  source={selectedItem.imageUrl}
-                  style={styles.modalImage}
-                />
-                <Text style={styles.itemName}>{selectedItem.name}</Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.characterGoldText}>
-                    {selectedItem.price}
-                  </Text>
-                  <FontAwesome6
-                    name="coins"
-                    size={20}
-                    color={theme.fonts.color.gold}
-                  />
-                </View>
-                <View style={styles.modalActions}>
-                  <Button
-                    onPress={() => setIsModalVisible(false)}
-                    title="Cancel"
-                  />
-                  <Button
-                    onPress={() => handlePurchaseItem(selectedItem)}
-                    title="Purchase"
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
+          <ItemModal
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            selectedItem={selectedItem}
+            handlePurchaseItem={handlePurchaseItem}
+          />
+        )}
+        {isSnackbarVisible && (
+          <Snackbar
+            message="Purchase ok!"
+            actionText="Equip"
+            onActionPress={() =>
+              handleEquipItem({
+                item: selectedItem,
+                character: character,
+                setCharacter: setCharacter,
+              })
+            }
+          />
         )}
       </View>
     </BackgroundImage>
@@ -194,12 +188,12 @@ export default ShopScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: theme.spacing.large,
   },
   appBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 40,
+    padding: theme.spacing.large,
   },
   characterGoldContainer: {
     flexDirection: "row",

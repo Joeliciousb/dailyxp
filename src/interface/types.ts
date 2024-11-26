@@ -29,7 +29,8 @@ export type Item = {
   id: string;
   name: string;
   price: number;
-  imageUrl: ImageSourcePropType;
+  equipped: boolean;
+  type: string;
 };
 
 export type RootStackParamList = {

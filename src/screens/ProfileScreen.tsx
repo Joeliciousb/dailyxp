@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import BackgroundImage from "./BackgroundImage";
-import { useNavigation } from "@react-navigation/native";
-import { calculateLevel } from "../utils/levelCalculations";
 import { Ionicons } from "@expo/vector-icons";
 import { useCharacterContext } from "../services/CharacterContext";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import theme from "../utils/theme";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import CharacterInfo from "../components/CharacterInfo";
+import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../interface/types";
-import { getRaceImage } from "../utils/imageMappings";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const ProfileScreen = () => {
   const { character } = useCharacterContext();
+  const [activeTab, setActiveTab] = useState("Character");
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const source = getRaceImage(character!.race, character!.bodyType);
 
   return (
     <BackgroundImage>
@@ -29,38 +26,39 @@ const ProfileScreen = () => {
             <Ionicons name="settings" size={30} color="white" />
           </TouchableOpacity>
         </View>
-        <View style={styles.profileInfoContainer}>
-          <View style={styles.profileInfo}>
-            <Image source={source} style={styles.image} />
-            {character && (
-              <View
-                style={{
-                  paddingHorizontal: theme.spacing.medium,
-                  paddingBottom: theme.spacing.small,
-                }}
-              >
-                <Text style={styles.characterName}>{character.name},</Text>
-                <Text
-                  style={styles.character_text_body}
-                >{`Level ${calculateLevel(character.experience)} ${
-                  character.race
-                }`}</Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text style={styles.character_text_body}>
-                    Gold: {character.gold}
-                  </Text>
-                  <FontAwesome6
-                    name="coins"
-                    size={14}
-                    color={theme.fonts.color.gold}
-                  />
-                </View>
-                <Text style={styles.character_text_body}>
-                  Quests Completed: {character.questsCompleted}
-                </Text>
-              </View>
-            )}
-          </View>
+
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            style={[
+              styles.tab,
+              activeTab === "Character" ? styles.activeTab : null,
+            ]}
+            onPress={() => setActiveTab("Character")}
+          >
+            <Text style={styles.tabText}>Character Info</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.tab,
+              activeTab === "Inventory" ? styles.activeTab : null,
+            ]}
+            onPress={() => setActiveTab("Inventory")}
+          >
+            <Text style={styles.tabText}>Inventory</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.content}>
+          {activeTab === "Character" ? (
+            <CharacterInfo character={character!} />
+          ) : (
+            <View style={styles.inventoryContainer}>
+              <Text style={styles.inventoryText}>Inventory Items:</Text>
+              <Text style={styles.inventoryText}>- Sword</Text>
+              <Text style={styles.inventoryText}>- Shield</Text>
+              <Text style={styles.inventoryText}>- Potion</Text>
+            </View>
+          )}
         </View>
       </View>
     </BackgroundImage>
@@ -75,34 +73,42 @@ const styles = StyleSheet.create({
     padding: theme.spacing.large,
   },
   appBar: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 40,
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: theme.spacing.large,
-    borderRadius: 8,
+  tabs: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 40,
+    backgroundColor: theme.colors.secondary,
+    borderTopEndRadius: 8,
+    borderTopStartRadius: 8,
   },
-  profileInfoContainer: {
-    flex: 4,
+  tab: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "50%",
+    paddingVertical: theme.spacing.small,
+    paddingHorizontal: theme.spacing.large,
   },
-  profileInfo: {
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: theme.colors.primary,
+  },
+  tabText: {
+    color: theme.fonts.color.white,
+    fontSize: theme.fonts.size.medium,
+  },
+  content: {
+    flex: 1,
+  },
+  inventoryContainer: {
     backgroundColor: theme.colors.secondary,
     padding: theme.spacing.medium,
-    borderRadius: 8,
   },
-  characterName: {
-    fontSize: theme.fonts.size.xLarge,
-    fontWeight: "bold",
-    marginBottom: theme.spacing.small,
+  inventoryText: {
     color: theme.fonts.color.white,
-  },
-  character_text_body: {
-    fontSize: theme.fonts.size.large,
-    color: theme.fonts.color.white,
-    marginRight: theme.spacing.small,
+    fontSize: theme.fonts.size.medium,
   },
 });

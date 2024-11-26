@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "id": "panda",
+      "name": "Pandaria wallpaper",
+      "price": 100,
+      "equipped": false,
+      "type": "wallpaper"
+    },
+    {
+      "id": "wrath",
+      "name": "Northrend wallpaper",
+      "price": 150,
+      "equipped": false,
+      "type": "wallpaper"
+    },
+    {
+      "id": "deathwing",
+      "name": "Deathwing wallpaper",
+      "price": 125,
+      "equipped": false,
+      "type": "wallpaper"
+    },
+    {
+      "id": "teldrassil",
+      "name": "Teldrassil wallpaper",
+      "price": 100,
+      "equipped": false,
+      "type": "wallpaper"
+    },
+    {
+      "id": "insane",
+      "name": "Character Title, the Insane",
+      "price": 50,
+      "equipped": false,
+      "type": "title"
+    },
+    {
+      "id": "jenkins",
+      "name": "Character Title, Jenkins",
+      "price": 50,
+      "equipped": false,
+      "type": "title"
+    },
+    {
+      "id": "patient",
+      "name": "Character Title, the Patient",
+      "price": 50,
+      "equipped": false,
+      "type": "title"
+    }
+  ]
+}

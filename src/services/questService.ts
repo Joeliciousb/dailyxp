@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Quest } from "../interface/types";
-import questData from "../assets/quests/initialQuests.json";
+import questData from "../assets/data/initialQuests.json";
 
 const QUESTS_KEY = "quests";
 const RESET_TIMESTAMP_KEY = "resetTimestamp";

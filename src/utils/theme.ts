@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    primary: "#827374",
+    primary: "#E6E6EA",
     secondary: "#23221E",
     purple: "#5C0C5D",
     buttonRed: "#600700",
@@ -9,9 +9,6 @@ const theme = {
     opacity_75: "rgba(0,0,0,0.75)",
   },
   fonts: {
-    regular: "System",
-    bold: "System-Bold",
-    italic: "System-Italic",
     size: {
       small: 14,
       medium: 16,

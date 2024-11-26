@@ -1,7 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 
 export const images: {
-  [race: string]: { [body: string]: ImageSourcePropType };
+  [category: string]: { [image: string]: ImageSourcePropType };
 } = {
   human: {
     body1: require("../assets/images/races/body1/human.png"),
@@ -35,11 +35,23 @@ export const images: {
     body1: require("../assets/images/races/body1/troll.png"),
     body2: require("../assets/images/races/body2/troll.png"),
   },
+  wallpaper: {
+    classic: require("../assets/images/backgrounds/classic.png"),
+    wrath: require("../assets/images/backgrounds/wrath.png"),
+    panda: require("../assets/images/backgrounds/panda.png"),
+    teldrassil: require("../assets/images/backgrounds/teldrassil.png"),
+    deathwing: require("../assets/images/backgrounds/deathwing.png"),
+  },
+  title: {
+    insane: require("../assets/images/titles/insane.png"),
+    jenkins: require("../assets/images/titles/jenkins.png"),
+    patient: require("../assets/images/titles/patient.png"),
+  },
 };
 
-export const getRaceImage = (
-  race: string,
-  body: string
+export const getImage = (
+  category: string,
+  image: string
 ): ImageSourcePropType => {
-  return images[race]?.[body];
+  return images[category]?.[image];
 };
