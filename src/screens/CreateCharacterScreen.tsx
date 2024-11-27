@@ -162,7 +162,7 @@ const CreateCharacterScreen = () => {
         )}
 
         <Button
-          disabled={invalidName}
+          disabled={invalidName || newCharacter.name == ""}
           onPress={saveNewCharacter}
           title="Accept"
         />

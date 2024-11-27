@@ -110,7 +110,9 @@ const HomeScreen = () => {
               handleQuestAbandon={handleQuestAbandon}
             />
           ))}
-          <Text style={styles.headlineText}>Available dailies</Text>
+          {availableQuests.length > 0 && (
+            <Text style={styles.headlineText}>Available dailies</Text>
+          )}
           {availableQuests.map((quest, index) => (
             <QuestCard
               key={index}
@@ -118,6 +120,24 @@ const HomeScreen = () => {
               handleQuestPress={handleQuestPress}
             />
           ))}
+          {availableQuests.length === 0 && acceptedQuests.length === 0 && (
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                marginTop: "10%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: theme.fonts.size.xLarge,
+                  color: theme.fonts.color.white,
+                }}
+              >
+                All quests completed, come back tomorrow!
+              </Text>
+            </View>
+          )}
         </ScrollView>
         <QuestModal
           visible={modalVisible}

@@ -17,7 +17,7 @@ export const ifNewDaySelectRandomDailyQuests = async (): Promise<void> => {
     const savedTimestamp = await AsyncStorage.getItem(RESET_TIMESTAMP_KEY);
 
     if (!savedTimestamp || Number(savedTimestamp) < todayMidnight) {
-      const newQuests = selectRandomQuests(questData.initialQuests, 12);
+      const newQuests = selectRandomQuests(questData.initialQuests, 6);
       await AsyncStorage.setItem(QUESTS_KEY, JSON.stringify(newQuests));
       await AsyncStorage.setItem(RESET_TIMESTAMP_KEY, todayMidnight.toString());
     }
