@@ -58,6 +58,10 @@ const CreateCharacterScreen = () => {
     }
   };
 
+  const invalidName =
+    (newCharacter.name != "" && newCharacter.name.length < 3) ||
+    newCharacter.name.length > 14;
+
   return (
     <BackgroundImage>
       <View style={styles.container}>
@@ -151,7 +155,17 @@ const CreateCharacterScreen = () => {
           value={newCharacter.name}
           onChangeText={(e) => setNewCharacter({ ...newCharacter, name: e })}
         />
-        <Button onPress={saveNewCharacter} title="Accept" />
+        {invalidName && (
+          <Text style={{ fontSize: 16, color: "red", marginBottom: 8 }}>
+            Name must be between 3 to 15 characters.
+          </Text>
+        )}
+
+        <Button
+          disabled={invalidName}
+          onPress={saveNewCharacter}
+          title="Accept"
+        />
       </View>
     </BackgroundImage>
   );

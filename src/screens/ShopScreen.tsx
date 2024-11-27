@@ -163,7 +163,11 @@ const ShopScreen = () => {
           }
         >
           <View
-            style={{ padding: 30, backgroundColor: theme.fonts.color.gold }}
+            style={{
+              padding: 30,
+              width: "20%",
+              backgroundColor: theme.fonts.color.gold,
+            }}
           ></View>
         </TouchableOpacity>
 

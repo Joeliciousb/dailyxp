@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, View } from "react-native";
 import Text from "./Text";
 import theme from "../utils/theme";
 import Animated, { FadeIn } from "react-native-reanimated";
+import Button from "./Button";
 
 type SnackBarProps = {
   message: string;
@@ -13,12 +14,15 @@ type SnackBarProps = {
 const Snackbar = ({ message, actionText, onActionPress }: SnackBarProps) => {
   return (
     <Animated.View entering={FadeIn.duration(500)}>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { justifyContent: actionText ? "space-between" : "center" },
+        ]}
+      >
         <Text style={styles.messageText}>{message}</Text>
-        {actionText && (
-          <TouchableOpacity onPress={onActionPress}>
-            <Text style={styles.actionText}>{actionText}</Text>
-          </TouchableOpacity>
+        {actionText && onActionPress && (
+          <Button title={actionText} onPress={onActionPress} />
         )}
       </View>
     </Animated.View>
@@ -27,22 +31,19 @@ const Snackbar = ({ message, actionText, onActionPress }: SnackBarProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secondary,
     padding: 20,
     width: "80%",
     borderRadius: 4,
     flexDirection: "row",
     position: "absolute",
-    justifyContent: "space-around",
     left: 42,
     bottom: 30,
   },
   messageText: {
-    fontSize: 16,
-  },
-  actionText: {
-    marginLeft: 8,
-    fontSize: 14,
+    fontSize: theme.fonts.size.large,
+    color: theme.fonts.color.white,
+    padding: 8,
   },
 });
 
