@@ -149,8 +149,21 @@ const ShopScreen = () => {
           />
         ) : (
           // TODO
-          <View>
-            <Text>Shop is empty for now!</Text>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: theme.fonts.color.white,
+                fontSize: theme.fonts.size.xLarge,
+              }}
+            >
+              Shop is empty for now!
+            </Text>
           </View>
         )}
 
@@ -208,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 40,
-    padding: theme.spacing.large,
+    padding: 24,
   },
   characterGoldContainer: {
     flexDirection: "row",
@@ -217,35 +230,35 @@ const styles = StyleSheet.create({
   characterGoldText: {
     color: theme.fonts.color.white,
     fontSize: theme.fonts.size.large,
-    marginRight: theme.spacing.small,
+    marginRight: 8,
   },
   list: {
-    marginTop: theme.spacing.large,
-    paddingBottom: theme.spacing.large,
+    marginTop: 24,
+    paddingBottom: 24,
   },
   itemCard: {
     flex: 1,
     width: "70%",
     backgroundColor: theme.colors.opacity_75,
-    marginVertical: theme.spacing.medium,
-    marginHorizontal: theme.spacing.small,
-    borderRadius: theme.spacing.small,
+    marginVertical: 16,
+    marginHorizontal: 8,
+    borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.spacing.small,
+    padding: 8,
     alignSelf: "center",
   },
   itemImage: {
     width: "95%",
     height: 100,
-    marginBottom: theme.spacing.small,
+    marginBottom: 8,
     borderRadius: 10,
   },
   itemName: {
     fontSize: 18,
     color: theme.fonts.color.white,
     fontWeight: "bold",
-    marginBottom: theme.spacing.small,
+    marginBottom: 8,
   },
   itemPrice: {
     fontSize: 16,

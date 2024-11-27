@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.secondary,
     alignItems: "center",
     justifyContent: "space-between",
-    padding: theme.spacing.small,
-    margin: theme.spacing.medium,
-    borderRadius: theme.spacing.small,
+    padding: 8,
+    margin: 16,
+    borderRadius: 8,
   },
   questOverview: {
     flex: 1,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
     justifyContent: "space-around",
-    padding: theme.spacing.small,
+    padding: 8,
   },
   actionsRow: {
     flexDirection: "row",
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: theme.fonts.size.medium,
     color: theme.fonts.color.white,
-    marginBottom: theme.spacing.small,
+    marginBottom: 8,
   },
   taskText: {
     fontSize: theme.fonts.size.small,

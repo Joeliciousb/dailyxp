@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: theme.colors.secondary,
     borderRadius: 8,
-    padding: theme.spacing.medium,
+    padding: 16,
     width: "80%",
     height: "50%",
   },
@@ -111,20 +111,20 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.large,
     fontWeight: "bold",
     color: theme.fonts.color.white,
-    marginBottom: theme.spacing.small,
+    marginBottom: 8,
   },
   textTitle: {
     fontSize: theme.fonts.size.xLarge,
     fontWeight: "bold",
-    padding: theme.spacing.small,
+    padding: 8,
   },
   textBody: {
     fontSize: theme.fonts.size.medium,
-    padding: theme.spacing.small,
+    padding: 8,
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: theme.spacing.medium,
+    marginTop: 16,
   },
 });

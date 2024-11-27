@@ -181,16 +181,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   raceColumn: {
-    padding: theme.spacing.medium,
+    padding: 16,
   },
   bodyTypeRow: {
     flexDirection: "row",
-    padding: theme.spacing.small,
+    padding: 8,
   },
   bodyTypeImage: {
     height: 80,
     width: 80,
-    margin: theme.spacing.small,
+    margin: 8,
   },
   input: {
     height: 40,

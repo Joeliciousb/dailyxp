@@ -151,6 +151,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    padding: theme.spacing.small,
+    padding: 8,
   },
 });

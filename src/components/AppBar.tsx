@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    padding: theme.spacing.large,
+    padding: 24,
   },
   shopContainer: {
     flex: 1,

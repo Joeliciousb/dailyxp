@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: theme.colors.secondary,
     backgroundColor: theme.colors.opacity_75,
-    padding: theme.spacing.small,
-    margin: theme.spacing.medium,
+    padding: 8,
+    margin: 16,
     alignItems: "center",
   },
   textContainer: {
     flex: 1,
-    marginHorizontal: theme.spacing.small,
+    marginHorizontal: 8,
   },
   titleText: {
     color: theme.fonts.color.white,

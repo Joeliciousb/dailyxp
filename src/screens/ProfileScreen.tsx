@@ -13,7 +13,7 @@ import { useCharacterContext } from "../services/CharacterContext";
 import theme from "../utils/theme";
 import CharacterInfo from "../components/CharacterInfo";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../interface/types";
+import { Item, RootStackParamList } from "../interface/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getImage } from "../utils/imageMappings";
 import Button from "../components/Button";
@@ -24,6 +24,18 @@ const ProfileScreen = () => {
   const [activeTab, setActiveTab] = useState("Character");
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const sortItems = (a: Item, b: Item) => {
+    const order: Record<string, number> = {
+      equipped: 1,
+      wallpaper: 2,
+      title: 3,
+    };
+    const aOrder = a.equipped ? order.equipped : order[a.type];
+    const bOrder = b.equipped ? order.equipped : order[b.type];
+
+    return aOrder - bOrder;
+  };
 
   return (
     <BackgroundImage>
@@ -60,7 +72,7 @@ const ProfileScreen = () => {
             <CharacterInfo character={character!} />
           ) : (
             <ScrollView style={styles.inventoryContainer}>
-              {character!.inventory.map((item) => {
+              {character!.inventory.sort(sortItems).map((item) => {
                 const source = getImage(item.type, item.id);
                 return (
                   <View key={item.id} style={styles.itemCard}>
@@ -94,7 +106,7 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: theme.spacing.large,
+    padding: 24,
   },
   appBar: {
     flexDirection: "row",
@@ -114,8 +126,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "50%",
-    paddingVertical: theme.spacing.small,
-    paddingHorizontal: theme.spacing.large,
+    paddingVertical: 8,
+    paddingHorizontal: 24,
   },
   activeTab: {
     borderBottomWidth: 2,
@@ -130,16 +142,16 @@ const styles = StyleSheet.create({
   },
   inventoryContainer: {
     backgroundColor: theme.colors.secondary,
-    padding: theme.spacing.medium,
+    padding: 16,
   },
   inventoryText: {
     color: theme.fonts.color.white,
     fontSize: theme.fonts.size.medium,
   },
-  itemCard: { padding: theme.spacing.medium },
+  itemCard: { padding: 16 },
   itemCardInformation: {
     flexDirection: "row",
-    marginVertical: theme.spacing.medium,
+    marginVertical: 16,
     alignItems: "center",
     justifyContent: "space-between",
   },

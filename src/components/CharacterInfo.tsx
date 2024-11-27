@@ -28,8 +28,8 @@ const CharacterInfo = ({ character }: CharacterInfoProps) => {
         {character && (
           <View
             style={{
-              paddingHorizontal: theme.spacing.medium,
-              paddingBottom: theme.spacing.small,
+              paddingHorizontal: 16,
+              paddingBottom: 8,
             }}
           >
             <Text style={styles.characterName}>
@@ -63,23 +63,23 @@ export default CharacterInfo;
 const styles = StyleSheet.create({
   profileInfoContainer: {
     backgroundColor: theme.colors.secondary,
-    padding: theme.spacing.small,
+    padding: 8,
   },
   image: {
     width: 150,
     height: 150,
-    marginBottom: theme.spacing.large,
+    marginBottom: 24,
     borderRadius: 8,
   },
   characterName: {
     fontSize: theme.fonts.size.xLarge,
     fontWeight: "bold",
-    marginBottom: theme.spacing.small,
+    marginBottom: 8,
     color: theme.fonts.color.white,
   },
   character_text_body: {
     fontSize: theme.fonts.size.large,
     color: theme.fonts.color.white,
-    marginRight: theme.spacing.small,
+    marginRight: 8,
   },
 });
