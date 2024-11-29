@@ -148,7 +148,6 @@ const ShopScreen = () => {
             contentContainerStyle={styles.list}
           />
         ) : (
-          // TODO
           <View
             style={{
               flex: 1,
@@ -177,7 +176,7 @@ const ShopScreen = () => {
         >
           <View
             style={{
-              padding: 30,
+              padding: 15,
               width: "20%",
               backgroundColor: theme.fonts.color.gold,
             }}

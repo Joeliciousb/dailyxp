@@ -1,5 +1,3 @@
-import { ImageSourcePropType } from "react-native";
-
 export type Quest = {
   id: number;
   status?: string;
@@ -37,6 +35,5 @@ export type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
   CreateCharacter: undefined;
-  Settings: undefined;
   Shop: undefined;
 };

@@ -2,9 +2,9 @@ import { StyleSheet, View } from "react-native";
 import ExperienceContainer from "./ExperienceContainer";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import theme from "../utils/theme";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../interface/types";
+import theme from "../utils/theme";
 
 const AppBar = () => {
   const navigation =
@@ -15,7 +15,7 @@ const AppBar = () => {
         <Feather
           name="shopping-cart"
           size={30}
-          color="white"
+          color={theme.fonts.color.white}
           onPress={() => navigation.navigate("Shop")}
         />
       </View>
@@ -26,7 +26,7 @@ const AppBar = () => {
         <Feather
           name="user"
           size={30}
-          color="white"
+          color={theme.fonts.color.white}
           onPress={() => navigation.navigate("Profile")}
         />
       </View>

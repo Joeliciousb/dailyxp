@@ -15,13 +15,13 @@ import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 
-function AppNavigator() {
+const AppNavigator = () => {
   const { character, loading } = useCharacterContext();
 
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
@@ -37,7 +37,7 @@ function AppNavigator() {
       <Stack.Screen name="Shop" component={ShopScreen} />
     </Stack.Navigator>
   );
-}
+};
 
 export default function App() {
   useFonts({

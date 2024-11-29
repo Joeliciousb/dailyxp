@@ -21,11 +21,6 @@ export const loadCharacter = async (): Promise<Character | null> => {
   }
 };
 
-export const characterExists = async (): Promise<boolean> => {
-  const character = await loadCharacter();
-  return character !== null;
-};
-
 export const deleteCharacter = async (): Promise<void> => {
   try {
     await AsyncStorage.removeItem(CHARACTER_KEY);
